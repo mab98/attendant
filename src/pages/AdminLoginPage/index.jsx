@@ -1,5 +1,4 @@
 /* eslint-disable no-shadow */
-/* eslint-disable no-unused-vars */
 import './styles.css';
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
@@ -27,12 +26,12 @@ const AdminLoginPage = () => {
 
   const state = useSelector((state) => state);
   const {
-    admin, isAdminLoggedin, incorrectAdminCredentials, clientId, redirectUri,
+    admin, isAdminLoggedin, incorrectAdminCredentials, clientId,
   } = state;
 
   const authenticateAdmin = () => {
     if (id === admin.id && pin === admin.pin) {
-      window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}`;
+      window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=gist`;
       dispatch(loginAdminAction({ isAdminLoggedin: true }));
     } else {
       dispatch(loginAdminFailAction());

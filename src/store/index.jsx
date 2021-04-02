@@ -3,16 +3,23 @@
 import { createStore } from 'redux';
 import reducer from './reducers';
 
-const { GIST_ID, GIST_FILENAME } = process.env;
-const token = JSON.parse(localStorage.getItem('token'));
+let getToken;
 let TOKEN;
-if (token) { TOKEN = token.token; console.log(TOKEN); }
+setTimeout(() => {
+  getToken = JSON.parse(localStorage.getItem('token'));
+  if (getToken) { TOKEN = getToken.token; }
+  console.log('GET-TOKEN:', TOKEN);
+}, 5000);
+
+const GIST_ID = 'b16b6fd67c637e4ca465b566a09b1032';
+const GIST_FILENAME = 'db.json';
 
 async function setData(data) {
   if (TOKEN) {
     const req = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
       method: 'PATCH',
       headers: {
+        accept: 'application/vnd.github.v3+json',
         Authorization: `Bearer ${TOKEN}`,
       },
       body: JSON.stringify({
@@ -35,7 +42,7 @@ const store = createStore(
 export default store;
 
 store.subscribe(() => {
-  console.log(store.getState());
   setData(store.getState());
+  console.log(store.getState());
   console.log('CHECK GIST');
 });
