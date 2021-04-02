@@ -1,0 +1,67 @@
+import './styles.css';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+import { changePinUserAction } from '../../store/actions';
+
+const schema = yup.object().shape({
+  pin: yup.number().typeError('PIN Code Must b a Number').test('len', 'Must be 4 digits', (val) => val.toString().length === 4).required(),
+});
+
+const UserChangePinPage = () => {
+  const [newPin, setNewPin] = useState('');
+
+  const { users, currentUser } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const updateUser = users.find((user) => user.id === currentUser.id);
+
+  const changePin = () => {
+    updateUser.pin = newPin;
+    updateUser.firstTime = false;
+    dispatch(
+      changePinUserAction({
+        users,
+      }),
+    );
+  };
+
+  if (updateUser.firstTime === false) {
+    return <Redirect to="/user/punchcard" />;
+  }
+
+  return (
+    <div className="changepin">
+      <div className="changepin-container">
+        <h1>Change Pin Page</h1>
+        <form onSubmit={handleSubmit(changePin)}>
+          <div className="changepin-group">
+            <input
+              name="pin"
+              type="password"
+              className="changepin-control"
+              placeholder="Enter New Pin"
+              onChange={(e) => setNewPin(e.target.value)}
+              ref={register}
+            />
+            <p className="red">{errors.pin?.message}</p>
+          </div>
+          <div className="changepin-group">
+            <input type="submit" className="changepin-btn" value="Update PIN" />
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default UserChangePinPage;

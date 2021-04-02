@@ -1,0 +1,37 @@
+.changepin {
+  display: block;
+  width: 100%;
+  max-width: 40rem;
+  margin: 4rem auto 6rem;
+  border: 1px solid black;
+}
+
+.changepin-container {
+  width: 90%;
+  margin: 30px auto;
+}
+
+.changepin-group {
+  margin: 10px 0;
+}
+
+.changepin-control {
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid silver;
+  outline: none;
+}
+
+.changepin-btn {
+  width: 50%;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  padding: 12px 10px;
+  color: #fff;
+  cursor: pointer;
+  background: #006eff;
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 16px;
+}

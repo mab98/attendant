@@ -1,0 +1,50 @@
+.user-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.user-update {
+  background: #40d233;
+  color: white;
+}
+
+.user-delete {
+  color: white;
+  background: #df3434;
+}
+
+.users {
+  border: 1px solid black;
+  margin: 5px;
+  margin-top: 0;
+}
+
+.search-box {
+  text-align: center;
+  width: 150px;
+  line-height: 30px;
+  margin: 5px;
+}
+
+.user-id,
+.user-workhours {
+  width: 150px;
+}
+
+.user-role,
+.user-name,
+.user-email {
+  width: 150px;
+}
+
+.searched-data {
+  color: red;
+}
+
+.dropdown-button {
+  border: 1px solid black;
+  padding: 6px 28px 27px;
+}

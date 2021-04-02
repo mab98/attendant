@@ -1,0 +1,94 @@
+.settings {
+  margin: 1rem auto 6rem;
+  text-align: center;
+}
+
+.settings-container {
+  padding: 10px;
+}
+
+.settings-form {
+  margin: 0 auto;
+  border: 1px solid black;
+  width: 500px;
+}
+
+.settings-change-hours {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.settings-group {
+  margin: 10px;
+  margin-top: 0px;
+}
+
+.settings-group label {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-control {
+  padding: 5px;
+  border: 1px solid silver;
+  outline: none;
+  text-align: center;
+}
+
+.settings-btn {
+  outline: none;
+  max-width: 15rem;
+  border: none;
+  text-decoration: none;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+  background: #006eff;
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 15px;
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.user-update {
+  background: #40d233;
+  color: white;
+}
+
+.user-delete {
+  color: white;
+  background: #df3434;
+}
+
+.users {
+  border: 1px solid black;
+  margin: 5px;
+  margin-top: 0;
+}
+
+.search-box {
+  text-align: center;
+  width: 150px;
+  line-height: 30px;
+  margin: 5px;
+}
+
+.user-id,
+.user-fname,
+.user-lname,
+.user-dept {
+  width: 60px;
+}
+.space,
+.user-role,
+.user-email {
+  width: 150px;
+}

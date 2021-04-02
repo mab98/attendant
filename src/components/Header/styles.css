@@ -1,0 +1,24 @@
+.header {
+  height: 3rem;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+.header-logo-text {
+  font-size: 30px;
+  position: absolute;
+  top: -3px;
+  left: 15px;
+}
+.header-nav-items {
+  position: absolute;
+  top: 1rem;
+  right: 10px;
+}
+
+.header-li {
+  list-style: none;
+}
+
+.logout-button {
+  border: 1px solid gray;
+  padding: 5px;
+}

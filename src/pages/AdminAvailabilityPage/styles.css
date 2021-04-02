@@ -1,0 +1,85 @@
+@import "~antd/dist/antd.css";
+
+.user-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.user-update {
+  background: #40d233;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.user-delete {
+  color: white;
+  background: #df3434;
+  margin-bottom: 15px;
+}
+
+.users {
+  border: 1px solid black;
+  margin: 5px;
+  margin-top: 0;
+}
+
+.search-box {
+  text-align: center;
+  width: 150px;
+  line-height: 30px;
+  margin: 5px;
+}
+
+.user-id,
+.user-fname,
+.user-lname,
+.user-dept {
+  width: 60px;
+}
+
+.user-role,
+.user-availability-email {
+  width: 150px;
+}
+
+.dashboard {
+  display: block;
+  width: 100%;
+  margin: 1rem auto 6rem;
+  text-align: center;
+}
+.dashboard-container {
+  padding: 10px;
+}
+.dashboard-group {
+  margin: 10px 0;
+}
+.dashboard-btn {
+  outline: none;
+  max-width: 15rem;
+  border: none;
+  text-decoration: none;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+  background: #006eff;
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 15px;
+}
+
+.records-table-cells {
+  width: 150px;
+  border: 1px solid black;
+}
+
+.records-table {
+  text-align: center;
+}
+
+.searched-data {
+  color: red;
+}
