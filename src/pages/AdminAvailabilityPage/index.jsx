@@ -20,15 +20,6 @@ const AdminAvailabilityPage = () => {
 
   const filteredUser = users.filter((user) => user.id.toLowerCase()
     .includes(searchField.toLowerCase()));
-  const GIST_ID = 'b16b6fd67c637e4ca465b566a09b1032';
-  const GIST_FILENAME = 'db.json';
-  async function getData() {
-    const req = await fetch(`https://api.github.com/gists/${GIST_ID}`);
-    const gist = await req.json();
-    const gistContent = JSON.parse(gist.files[GIST_FILENAME].content);
-    console.log('GIST_CONTENT:', gistContent);
-    return gistContent;
-  }
 
   useEffect(() => {
     const url = window.location.href;
@@ -49,14 +40,13 @@ const AdminAvailabilityPage = () => {
       })
         .then((response) => response.json())
         .then((token) => {
-          localStorage.setItem('token', token);
+          localStorage.setItem('token', JSON.stringify(token));
           console.log('TOKEN:', token);
         })
         .catch((error) => {
           console.log('ERROR:', error);
         });
     }
-    getData();
   }, []);
 
   return (
