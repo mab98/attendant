@@ -37,11 +37,6 @@ const initialState = {
   },
   users: [],
   isAdminLoggedin: JSON.parse(localStorage.getItem('isAdminLoggedin')) || false,
-  clientId: '4c3c1d91cf3283d91a1b',
-  clientSecret: '899c735fc2cdd399f851a71a116a20815510c1be',
-  redirectUri: 'http://localhost:3000/admin/dashboard',
-  proxyUrl: 'http://localhost:5000/authenticate',
-
   isUserLoggedin: false,
   incorrectAdminCredentials: false,
   incorrectUserCredentials: false,

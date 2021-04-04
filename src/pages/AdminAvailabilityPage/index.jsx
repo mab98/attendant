@@ -11,7 +11,7 @@ const { TabPane } = Tabs;
 
 const AdminAvailabilityPage = () => {
   const state = useSelector((state) => state);
-  const { isAdminLoggedin, users, proxyUrl } = state;
+  const { isAdminLoggedin, users } = state;
   const available = users.filter((item) => (item.available === 'Available'));
   const notAvailable = users.filter((item) => (item.available === 'Not Available'));
   const onLeave = users.filter((item) => (item.available === 'On Leave'));
@@ -33,8 +33,10 @@ const AdminAvailabilityPage = () => {
         code: newUrl[1],
       };
 
+      const PROXY_URL = 'http://localhost:5000/authenticate';
+
       // Use code parameter and other parameters to make POST request to proxy_server
-      fetch(proxyUrl, {
+      fetch(PROXY_URL, {
         method: 'POST',
         body: JSON.stringify(requestData),
       })

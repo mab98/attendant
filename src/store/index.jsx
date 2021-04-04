@@ -30,6 +30,7 @@ async function setData(data) {
         },
       }),
     });
+    console.log('GIST UPDATED');
     return req.json();
   }
 }
@@ -44,5 +45,4 @@ export default store;
 store.subscribe(() => {
   setData(store.getState());
   console.log(store.getState());
-  console.log('CHECK GIST');
 });
