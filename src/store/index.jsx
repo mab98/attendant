@@ -66,7 +66,6 @@ function saveToLocalStorage(state) {
 
 store.subscribe(() => {
   setData(store.getState());
-  console.log(store.getState());
 });
 
 store.subscribe(() => saveToLocalStorage(store.getState()));

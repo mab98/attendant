@@ -9,8 +9,6 @@ import {
   CHANGE_PIN, NO_PUNCH_OUT, SET_REDUCER_STATE, setReducerState,
 } from './actions';
 
-let lastId = -1;
-
 function threeDigit(myNumber) {
   const formattedNumber = myNumber.toLocaleString('en-US', {
     minimumIntegerDigits: 3,
@@ -45,6 +43,8 @@ const initialState = {
   officeStartHours: '09:00',
   officeEndHours: '18:00',
   lastIdReached: false,
+  lastId: -1,
+  newRecord: '',
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -59,16 +59,17 @@ export const rootReducer = (state = initialState, action) => {
     case LOGIN_ADMIN_FAIL:
       return { ...state, incorrectAdminCredentials: true };
     case LOGOUT_ADMIN:
-      localStorage.clear();
+      localStorage.removeItem('token');
       return { ...state, isAdminLoggedin: false };
     case ADD_USER:
+      let { lastId } = state;
       lastId += 1;
       if (lastId === 999) {
         let lIdR = state.lastIdReached;
         // eslint-disable-next-line no-unused-vars
         lIdR = true;
       }
-      return { ...state, users: [...state.users, { id: (`${action.payload.department}-${threeDigit(lastId)}`), pin: '0000', ...action.payload }] };
+      return { ...state, lastId, users: [...state.users, { id: (`${action.payload.department}-${threeDigit(lastId)}`), pin: '0000', ...action.payload }] };
     case DELETE_USER:
       const newUsers = state.users.filter((user) => user.id !== action.payload.id);
       return { ...state, users: newUsers };
@@ -97,6 +98,7 @@ export const rootReducer = (state = initialState, action) => {
     case LOGIN_USER_FAIL:
       return { ...state, incorrectUserCredentials: true };
     case LOGOUT_USER:
+      localStorage.removeItem('token');
       return { ...state, isUserLoggedin: false, currentUser: '' };
     case CHANGE_AVAILABILITY:
       const newObj = {
@@ -122,7 +124,6 @@ export const rootReducer = (state = initialState, action) => {
           alrERec.timeOut = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
           alrERec.workHours = minsToStr(strToMins(alrERec.timeOut) - strToMins(alrERec.timeIn));
         }
-
         if (currentUser.records[currentUser.records.length - 1].timeIn !== '') {
           const sum = currentUser.records
           // eslint-disable-next-line no-param-reassign
@@ -142,7 +143,6 @@ export const rootReducer = (state = initialState, action) => {
       currentUser.available = 'Not Available';
       return { ...state };
     case SET_REDUCER_STATE:
-      console.log('SETTING:', action.payload);
       return (action.payload);
     default:
       return state;

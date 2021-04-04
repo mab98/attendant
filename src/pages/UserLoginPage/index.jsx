@@ -36,9 +36,13 @@ const UserLoginPage = () => {
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
+  const CLIENT_ID = 'ebef7c80ac59d127b94a';
   const authenticateUser = () => {
     const reqUser = users.reduce((acc, item) => {
-      if (id === item.id && pin === item.pin) return item;
+      if (id === item.id && pin === item.pin) {
+        window.location = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=gist`;
+        return item;
+      }
       return acc;
     }, {});
 
