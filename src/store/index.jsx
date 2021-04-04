@@ -1,7 +1,9 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
-import { createStore } from 'redux';
-import reducer from './reducers';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { rootReducer } from './reducers';
 
 let getToken;
 let TOKEN;
@@ -36,8 +38,7 @@ async function setData(data) {
 }
 
 const store = createStore(
-  reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  rootReducer, composeWithDevTools(applyMiddleware(thunk)),
 );
 
 export default store;

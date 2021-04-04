@@ -1,5 +1,5 @@
 import './styles.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from 'reactstrap';
@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import { loginUserAction, loginUserFailAction } from '../../store/actions';
+import { loadGistData } from '../../store/reducers';
 
 const schema = yup.object().shape({
   id: yup.string().required(),
@@ -24,6 +25,10 @@ const UserLoginPage = () => {
   const [pin, setPin] = useState('0000');
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadGistData());
+  }, []);
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),

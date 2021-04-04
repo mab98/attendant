@@ -6,7 +6,7 @@ import {
   LOGIN_ADMIN, LOGIN_ADMIN_FAIL, LOGOUT_ADMIN,
   CHANGE_HOURS, ADD_USER, DELETE_USER, UPDATE_USER,
   LOGIN_USER, LOGIN_USER_FAIL, LOGOUT_USER, CHANGE_AVAILABILITY,
-  CHANGE_PIN, NO_PUNCH_OUT,
+  CHANGE_PIN, NO_PUNCH_OUT, SET_REDUCER_STATE, setReducerState,
 } from './actions';
 
 let lastId = -1;
@@ -47,7 +47,7 @@ const initialState = {
   lastIdReached: false,
 };
 
-const rootReducer = (state = initialState, action) => {
+export const rootReducer = (state = initialState, action) => {
   const currentUser = state.users.find((user) => user.id === state.currentUser.id);
   switch (action.type) {
     case LOGIN_ADMIN:
@@ -126,7 +126,7 @@ const rootReducer = (state = initialState, action) => {
 
         if (currentUser.records[currentUser.records.length - 1].timeIn !== '') {
           const sum = currentUser.records
-            // eslint-disable-next-line no-param-reassign
+          // eslint-disable-next-line no-param-reassign
             .reduce((acc, record) => acc += parseInt(record.workHours, 10), 0);
           currentUser.avgWorkHours = sum / currentUser.records.length;
         }
@@ -142,9 +142,28 @@ const rootReducer = (state = initialState, action) => {
       }
       currentUser.available = 'Not Available';
       return { ...state };
+    case SET_REDUCER_STATE:
+      console.log('IN-REDUCER', (action.payload));
+      return (action.payload);
     default:
       return state;
   }
 };
 
-export default rootReducer;
+// eslint-disable-next-line no-unused-vars
+export const loadGistData = () => async (dispatch, getState) => {
+  const req = await fetch('https://api.github.com/gists/b16b6fd67c637e4ca465b566a09b1032');
+  const gist = await req.json();
+  const gistData = JSON.parse(gist.files['db.json'].content);
+  dispatch(setReducerState(gistData));
+};
+
+/*
+async function getData() {
+  const req = await fetch('https://api.github.com/gists/b16b6fd67c637e4ca465b566a09b1032');
+  const gist = await req.json();
+  const gistData = JSON.parse(gist.files['db.json'].content);
+  console.log(gistData);
+  return gistData;
+}
+*/

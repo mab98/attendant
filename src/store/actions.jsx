@@ -13,6 +13,8 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const CHANGE_AVAILABILITY = 'CHANGE_AVAILABILITY';
 export const CHANGE_PIN = 'CHANGE_PIN';
 
+export const SET_REDUCER_STATE = 'SET_REDUCER_STATE';
+
 export const NO_PUNCH_OUT = 'NO_PUNCH_OUT';
 
 export const addUserAction = (data) => ({
@@ -73,4 +75,9 @@ export const changePinUserAction = (data) => ({
 
 export const onNoPunchOutUserAction = () => ({
   type: NO_PUNCH_OUT,
+});
+
+export const setReducerState = (data) => ({
+  type: SET_REDUCER_STATE,
+  payload: data,
 });
