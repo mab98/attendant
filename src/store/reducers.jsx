@@ -36,7 +36,7 @@ const initialState = {
     pin: '1111',
   },
   users: [],
-  isAdminLoggedin: JSON.parse(localStorage.getItem('isAdminLoggedin')) || false,
+  isAdminLoggedin: false,
   isUserLoggedin: false,
   incorrectAdminCredentials: false,
   incorrectUserCredentials: false,
@@ -51,7 +51,6 @@ export const rootReducer = (state = initialState, action) => {
   const currentUser = state.users.find((user) => user.id === state.currentUser.id);
   switch (action.type) {
     case LOGIN_ADMIN:
-      localStorage.setItem('isAdminLoggedin', JSON.stringify(action.payload.isAdminLoggedin));
       return {
         ...state,
         ...action.payload,
