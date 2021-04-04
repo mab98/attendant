@@ -48,7 +48,7 @@ const PunchCardPage = () => {
         .then((response) => response.json())
         .then((token) => {
           localStorage.setItem('token', JSON.stringify(token));
-          console.log('SET-TOKEN:', token.token);
+          console.log('SET-TOKEN-2:', token.token);
         })
         .catch((error) => {
           console.log('ERROR:', error);
