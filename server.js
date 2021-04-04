@@ -20,7 +20,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/authenticate', (req, res) => {
+app.post('/authorize', (req, res) => {
   const { code } = req.body;
 
   const data = new FormData();

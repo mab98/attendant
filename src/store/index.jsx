@@ -44,5 +44,4 @@ export default store;
 
 store.subscribe(() => {
   setData(store.getState());
-  console.log(store.getState());
 });
