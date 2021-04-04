@@ -43,7 +43,7 @@ const UserChangePinPage = () => {
         code: newUrl[1],
       };
 
-      const PROXY_URL = 'http://localhost:5000/authorizeuser';
+      const PROXY_URL = 'http://localhost:5000/authorize/user/changepin';
 
       // Use code parameter and other parameters to make POST request to proxy_server
       fetch(PROXY_URL, {
@@ -61,7 +61,9 @@ const UserChangePinPage = () => {
     }
   }, []);
 
+  const CLIENT_ID = 'd0b4cbccb3d20f7137d7';
   if (updateUser.firstTime === false) {
+    window.location = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=gist`;
     return <Redirect to="/user/punchcard" />;
   }
 

@@ -17,8 +17,6 @@ function threeDigit(myNumber) {
   return formattedNumber;
 }
 
-let newRecord;
-
 function strToMins(t) {
   const s = t.split(':');
   return Number(s[0]) * 60 + Number(s[1]);
@@ -44,11 +42,12 @@ const initialState = {
   officeEndHours: '18:00',
   lastIdReached: false,
   lastId: -1,
-  newRecord: '',
+  newUserRecord: false,
 };
 
 export const rootReducer = (state = initialState, action) => {
   const currentUser = state.users.find((user) => user.id === state.currentUser.id);
+  let { newUserRecord } = state;
   switch (action.type) {
     case LOGIN_ADMIN:
       return {
@@ -88,23 +87,27 @@ export const rootReducer = (state = initialState, action) => {
       minHr = parseInt(endHr, 10) - parseInt(startHr, 10);
       return { ...state, ...action.payload, minWorkHours: minHr };
     case LOGIN_USER:
-      newRecord = true;
+      newUserRecord = true;
       return {
         ...state,
         ...action.payload,
         isUserLoggedin: true,
         incorrectUserCredentials: false,
+        newUserRecord,
       };
     case LOGIN_USER_FAIL:
       return { ...state, incorrectUserCredentials: true };
     case LOGOUT_USER:
+      newUserRecord = false;
       localStorage.removeItem('token');
-      return { ...state, isUserLoggedin: false, currentUser: '' };
+      return {
+        ...state, isUserLoggedin: false, currentUser: '', newUserRecord,
+      };
     case CHANGE_AVAILABILITY:
       const newObj = {
         date: new Date().toLocaleDateString(), timeIn: '', timeOut: '', workHours: '', id: uuidv1(),
       };
-      if (newRecord) {
+      if (newUserRecord) {
         const { records } = state.users.find((user) => user.id === state.currentUser.id);
         if (records.length === 0) {
           records.push(newObj);
@@ -112,7 +115,7 @@ export const rootReducer = (state = initialState, action) => {
         if (records[records.length - 1].date !== new Date().toLocaleDateString()) {
           records.push(newObj);
         }
-        newRecord = false;
+        newUserRecord = false;
       }
       currentUser.available = action.payload;
       const alrERec = currentUser.records

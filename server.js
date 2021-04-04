@@ -15,7 +15,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/authorizeadmin', (req, res) => {
+app.post('/authorize/admin', (req, res) => {
   const admin_clientId = '4c3c1d91cf3283d91a1b';
   const admin_clientSecret = '899c735fc2cdd399f851a71a116a20815510c1be';
   const admin_redirectUri = 'http://localhost:3000/admin/dashboard';
@@ -41,7 +41,7 @@ app.post('/authorizeadmin', (req, res) => {
     });
 });
 
-app.post('/authorizeuser', (req, res) => {
+app.post('/authorize/user/changepin', (req, res) => {
   const user_clientId = 'ebef7c80ac59d127b94a';
   const user_clientSecret = '716baae943fa90c83a8598d722cca68bc3874bfb';
   const user_redirectUri = 'http://localhost:3000/user/changepin';
@@ -62,7 +62,33 @@ app.post('/authorizeuser', (req, res) => {
     .then((paramsString) => {
       const params = new URLSearchParams(paramsString);
       const access_token = params.get('access_token');
-      console.log('USER-TOKEN:', access_token);
+      console.log('USER-TOKEN-1:', access_token);
+      res.send({ token: access_token });
+    });
+});
+
+app.post('/authorize/user/punchcard', (req, res) => {
+  const user_clientId = 'd0b4cbccb3d20f7137d7';
+  const user_clientSecret = 'e838f8f64b9c6bd3f57dcff6ac5de5a5fb727fc0';
+  const user_redirectUri = 'http://localhost:3000/user/punchcard';
+
+  const { code } = req.body;
+
+  const data = new FormData();
+  data.append('client_id', user_clientId);
+  data.append('client_secret', user_clientSecret);
+  data.append('code', code);
+  data.append('redirectUri', user_redirectUri);
+
+  fetch('https://github.com/login/oauth/access_token', {
+    method: 'POST',
+    body: data,
+  })
+    .then((response) => response.text())
+    .then((paramsString) => {
+      const params = new URLSearchParams(paramsString);
+      const access_token = params.get('access_token');
+      console.log('USER-TOKEN-2:', access_token);
       res.send({ token: access_token });
     });
 });

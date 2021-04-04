@@ -9,7 +9,7 @@ import './styles.css';
 
 const PunchCardPage = () => {
   const {
-    currentUser, users, officeStartHours, officeEndHours,
+    currentUser, users, officeStartHours, officeEndHours, fir,
   } = useSelector((state) => state);
 
   const [searchField, setSearchField] = useState('');
@@ -25,6 +25,36 @@ const PunchCardPage = () => {
   if (currentUser) {
     availability = users.find((user) => user.id === currentUser.id).available;
   }
+
+  useEffect(() => {
+    const url = window.location.href;
+    const hasCode = url.includes('?code=');
+
+    if (hasCode) {
+      const newUrl = url.split('?code=');
+      window.history.pushState({}, null, newUrl[0]);
+
+      const requestData = {
+        code: newUrl[1],
+      };
+
+      const PROXY_URL = 'http://localhost:5000/authorize/user/punchcard';
+
+      // Use code parameter and other parameters to make POST request to proxy_server
+      fetch(PROXY_URL, {
+        method: 'POST',
+        body: JSON.stringify(requestData),
+      })
+        .then((response) => response.json())
+        .then((token) => {
+          localStorage.setItem('token', JSON.stringify(token));
+          console.log('SET-TOKEN:', token.token);
+        })
+        .catch((error) => {
+          console.log('ERROR:', error);
+        });
+    }
+  }, []);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -102,20 +132,20 @@ const PunchCardPage = () => {
                   <>
                     {
                     currentTime < officeEndHours
-                      ? <Button type="submit" onClick={() => dispatch(changeAvailabilityUserAction('Not Available'))}>Punch Out</Button>
-                      : (<Button type="submit" disabled>Punch Out</Button>)
+                      ? <Button type="button" onClick={() => dispatch(changeAvailabilityUserAction('Not Available'))}>Punch Out</Button>
+                      : (<Button type="button" disabled>Punch Out</Button>)
                   }
                     {' '}
                     { parseInt((new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })), 10) > parseInt(officeStartHours, 10) + 1
-                      ? (<Button type="submit" disabled onClick={() => dispatch(changeAvailabilityUserAction('On Leave'))}>Leave</Button>)
-                      : <Button type="submit" onClick={() => dispatch(changeAvailabilityUserAction('On Leave'))}>Leave</Button> }
+                      ? (<Button type="button" disabled onClick={() => dispatch(changeAvailabilityUserAction('On Leave'))}>Leave</Button>)
+                      : <Button type="button" onClick={() => dispatch(changeAvailabilityUserAction('On Leave'))}>Leave</Button> }
 
                   </>
                 ) : (
                 // <>
                 // { currentTime < officeEndHours?
-                  <Button type="submit" onClick={() => dispatch(changeAvailabilityUserAction('Available'))}>Punch In</Button>
-                // : <Button type="submit" disabled>Punch In</Button>}
+                  <Button type="button" onClick={() => dispatch(changeAvailabilityUserAction('Available'))}>Punch In</Button>
+                // : <Button type="button" disabled>Punch In</Button>}
                 // </>
                 )}
                 <>
