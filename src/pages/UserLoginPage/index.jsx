@@ -27,7 +27,10 @@ const UserLoginPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadGistData());
+    const timer = setTimeout(() => {
+      dispatch(loadGistData());
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
 
   const { register, handleSubmit, errors } = useForm({

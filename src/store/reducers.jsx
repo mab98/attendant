@@ -143,7 +143,7 @@ export const rootReducer = (state = initialState, action) => {
       currentUser.available = 'Not Available';
       return { ...state };
     case SET_REDUCER_STATE:
-      console.log('IN-REDUCER', (action.payload));
+      console.log('SETTING:', action.payload);
       return (action.payload);
     default:
       return state;
@@ -157,13 +157,3 @@ export const loadGistData = () => async (dispatch, getState) => {
   const gistData = JSON.parse(gist.files['db.json'].content);
   dispatch(setReducerState(gistData));
 };
-
-/*
-async function getData() {
-  const req = await fetch('https://api.github.com/gists/b16b6fd67c637e4ca465b566a09b1032');
-  const gist = await req.json();
-  const gistData = JSON.parse(gist.files['db.json'].content);
-  console.log(gistData);
-  return gistData;
-}
-*/
