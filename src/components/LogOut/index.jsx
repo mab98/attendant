@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -18,6 +17,9 @@ const LogOut = ({ logoutAction }) => {
   );
 };
 
+LogOut.propTypes = {
+  logoutAction: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+};
 LogOut.defaultProps = {
   logoutAction: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
