@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import './styles.css';
 import { Tabs } from 'antd';
 import TableHeadings from '../../components/TableHeadings';
+import SearchBox from '../../components/SearchBox';
 
 const { TabPane } = Tabs;
 
@@ -58,11 +59,9 @@ const AdminAvailabilityPage = () => {
       {isAdminLoggedin
         ? (
           <div className="dashboard-container">
-            <input
-              className="search-box"
-              type="search"
+            <SearchBox
               placeholder="Global Search by ID"
-              onChange={(e) => setSearchField(e.target.value)}
+              setSearchField={setSearchField}
             />
 
             {filteredUser.length > 0 && searchField !== ''

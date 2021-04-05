@@ -22,13 +22,6 @@
   margin-top: 0;
 }
 
-.search-box {
-  text-align: center;
-  width: 150px;
-  line-height: 30px;
-  margin: 5px;
-}
-
 .user-id,
 .user-workhours {
   width: 150px;

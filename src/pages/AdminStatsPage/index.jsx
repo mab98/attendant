@@ -4,6 +4,7 @@ import './styles.css';
 import 'antd/dist/antd.css';
 import { Menu, Dropdown, Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
+import SearchBox from '../../components/SearchBox';
 
 const AdminStatsPage = () => {
   const [searchField, setSearchField] = useState('');
@@ -68,11 +69,9 @@ const AdminStatsPage = () => {
         ? (
 
           <div className="settings-container">
-            <input
-              className="search-box"
-              type="search"
+            <SearchBox
               placeholder="Search by ID"
-              onChange={(e) => setSearchField(e.target.value)}
+              setSearchField={setSearchField}
             />
 
             {filteredUser.length > 0 && searchField !== ''

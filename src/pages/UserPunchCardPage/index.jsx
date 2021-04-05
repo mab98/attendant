@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, Modal, Button } from 'antd';
 import { changeAvailabilityUserAction, onNoPunchOutUserAction } from '../../store/actions';
 import './styles.css';
+import SearchBox from '../../components/SearchBox';
 
 const PunchCardPage = () => {
   const {
@@ -154,11 +155,9 @@ const PunchCardPage = () => {
                     Record
                   </Button>
                   <Modal title="Record" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                    <input
-                      className="search-box"
-                      type="search"
+                    <SearchBox
                       placeholder="Search by Date"
-                      onChange={(e) => setSearchField(e.target.value)}
+                      setSearchField={setSearchField}
                     />
                     <table className="records-table">
                       <thead>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import SearchBox from '../../components/SearchBox';
 import { changeHours, deleteUserAction } from '../../store/actions';
 import './styles.css';
 
@@ -36,11 +37,9 @@ const SettingsPage = () => {
         ? (
           <div className="settings-container">
             <div className="users">
-              <input
-                className="search-box"
-                type="search"
+              <SearchBox
                 placeholder="Search by ID"
-                onChange={(e) => setSearchField(e.target.value)}
+                setSearchField={setSearchField}
               />
 
               <div className="user-row">
