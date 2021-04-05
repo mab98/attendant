@@ -1,20 +1,11 @@
 import './styles.css';
 import React, { useEffect, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Alert } from 'reactstrap';
-
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 
 import { loginUserAction, loginUserFailAction } from '../../store/actions';
 import { loadGistData } from '../../store/reducers';
-
-const schema = yup.object().shape({
-  id: yup.string().required(),
-  pin: yup.number().typeError('PIN Code must be a 4 Digit Number').required(),
-});
+import LoginForm from '../../components/LoginForm';
 
 const UserLoginPage = () => {
   const {
@@ -33,9 +24,6 @@ const UserLoginPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(schema),
-  });
   const CLIENT_ID = 'ebef7c80ac59d127b94a';
   const authenticateUser = () => {
     const reqUser = users.reduce((acc, item) => {
@@ -62,48 +50,7 @@ const UserLoginPage = () => {
       <h1>User Login Page</h1>
       {
         isAdminLoggedin ? null : (
-          <form onSubmit={handleSubmit(authenticateUser)}>
-            <div className="loginpage-group">
-              <input
-                name="id"
-                type="text"
-                placeholder="Enter ID"
-                className="loginpage-control"
-                onChange={(e) => setId(e.target.value)}
-                ref={register}
-              />
-              <p className="red">{errors.id?.message}</p>
-            </div>
-
-            <div className="loginpage-group">
-              <input
-                name="pin"
-                type="password"
-                placeholder="Enter PIN Code"
-                className="loginpage-control"
-                onChange={(e) => setPin(e.target.value)}
-                ref={register}
-              />
-              <p className="red">{errors.pin?.message}</p>
-            </div>
-
-            <div className="loginpage-group">
-              <input type="submit" className="loginpage-btn btn-default" value="Login" onClick={() => <Redirect to="/admin/dashboard" />} />
-            </div>
-
-            <div className="loginpage-group">
-              <Link to="/admin/login">
-                <button type="button" className="loginpage-btn btn-default">Admin Page</button>
-              </Link>
-            </div>
-            {incorrectUserCredentials === true ? (
-              <Alert style={{ textAlign: 'center', color: 'red' }}>
-                INCORRECT CREDENTIALS
-              </Alert>
-            ) : ''}
-
-          </form>
-
+          <LoginForm authenticate={authenticateUser} setId={setId} setPin={setPin} linkTo="/admin/login" entityTo="Admin" incorrectCredentials={incorrectUserCredentials} />
         )
       }
 
