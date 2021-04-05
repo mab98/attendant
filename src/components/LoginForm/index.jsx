@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Alert } from 'reactstrap';
 import { useForm } from 'react-hook-form';
@@ -65,6 +65,15 @@ const LoginForm = ({
 
     </form>
   );
+};
+
+LoginForm.propTypes = {
+  authenticate: PropTypes.string.isRequired,
+  setId: PropTypes.func.isRequired,
+  setPin: PropTypes.func.isRequired,
+  linkTo: PropTypes.string.isRequired,
+  entityTo: PropTypes.string.isRequired,
+  incorrectCredentials: PropTypes.bool.isRequired,
 };
 
 export default LoginForm;
