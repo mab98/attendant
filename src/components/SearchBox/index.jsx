@@ -1,4 +1,5 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
+
 import React from 'react';
 import './styles.css';
 
@@ -9,6 +10,11 @@ const SearchBox = ({ placeholder, setSearchField }) => (
     placeholder={placeholder}
     onChange={(e) => setSearchField(e.target.value)}
   />
+
 );
+SearchBox.propTypes = {
+  placeholder: PropTypes.string.isRequired,
+  setSearchField: PropTypes.func.isRequired,
+};
 
 export default SearchBox;
