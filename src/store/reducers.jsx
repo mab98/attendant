@@ -27,10 +27,6 @@ function minsToStr(t) {
 }
 
 const initialState = {
-  admin: {
-    id: 'admin',
-    pin: '1111',
-  },
   users: [],
   isAdminLoggedin: false,
   isUserLoggedin: false,

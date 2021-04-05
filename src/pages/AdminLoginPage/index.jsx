@@ -16,12 +16,12 @@ const AdminLoginPage = () => {
   const state = useSelector((state) => state);
 
   const {
-    admin, isAdminLoggedin, incorrectAdminCredentials,
+    isAdminLoggedin, incorrectAdminCredentials,
   } = state;
 
   const CLIENT_ID = '4c3c1d91cf3283d91a1b';
   const authenticateAdmin = () => {
-    if (id === admin.id && pin === admin.pin) {
+    if (id === 'admin' && pin === '1111') {
       window.location = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=gist`;
       dispatch(loginAdminAction({ isAdminLoggedin: true }));
     } else {
