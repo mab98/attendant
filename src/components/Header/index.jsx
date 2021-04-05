@@ -1,14 +1,13 @@
 /* eslint-disable no-sequences */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { logoutAdminAction, logoutUserAction } from '../../store/actions';
 import './styles.css';
+import LogOut from '../LogOut';
 
 const Header = () => {
   const { isAdminLoggedin, isUserLoggedin } = useSelector((state) => state);
-
-  const dispatch = useDispatch();
 
   return (
     <header className="header">
@@ -22,24 +21,12 @@ const Header = () => {
           <li className="header-li">
             {isAdminLoggedin === true
               ? (
-                <Link
-                  className="logout-button"
-                  to="/"
-                  onClick={() => dispatch(logoutAdminAction(false))}
-                >
-                  LOG OUT
-                </Link>
+                <LogOut logoutAction={logoutAdminAction(false)} />
               )
               : ''}
             {isUserLoggedin === true
               ? (
-                <Link
-                  className="logout-button"
-                  to="/"
-                  onClick={() => dispatch(logoutUserAction(false))}
-                >
-                  LOG OUT
-                </Link>
+                <LogOut logoutAction={logoutUserAction(false)} />
               )
               : ''}
           </li>
