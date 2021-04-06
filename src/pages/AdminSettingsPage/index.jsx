@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { notification } from 'antd';
 import { Link } from 'react-router-dom';
 import SearchBox from '../../components/SearchBox';
 import { changeHours, deleteUserAction } from '../../store/actions';
 import './styles.css';
+
+const openNotification = (type) => {
+  notification[type]({
+    message: 'Notification Title',
+    description:
+      'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+    onClick: () => {
+      console.log('Notification Clicked!');
+    },
+  });
+};
 
 const SettingsPage = () => {
   const [officeStartHoursS, setOfficeStartHoursS] = useState(null);
@@ -137,7 +149,13 @@ const SettingsPage = () => {
               </div>
 
               <div className="settings-group">
-                <button type="submit">Change Hours</button>
+                <button
+                  type="submit"
+                  onClick={() => openNotification('success')}
+                >
+                  Change Hours
+
+                </button>
               </div>
             </form>
           </div>

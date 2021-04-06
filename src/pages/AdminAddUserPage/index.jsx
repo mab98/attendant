@@ -2,6 +2,8 @@ import './styles.css';
 
 import React, { useState } from 'react';
 import { Alert } from 'reactstrap';
+import { notification } from 'antd';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useForm } from 'react-hook-form';
@@ -17,6 +19,17 @@ const schema = yup.object().shape({
   department: yup.string().required(),
   role: yup.string().required(),
 });
+
+const openNotification = (type) => {
+  notification[type]({
+    message: 'Notification Title',
+    description:
+      'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+    onClick: () => {
+      console.log('Notification Clicked!');
+    },
+  });
+};
 
 const AddUserPage = () => {
   const [firstname, setFirstname] = useState('');
@@ -52,6 +65,11 @@ const AddUserPage = () => {
         // },
       }),
     );
+    setFirstname('');
+    setLastname('');
+    setEmail('');
+    setDepartment('');
+    setRole('');
   };
 
   return (
@@ -64,6 +82,7 @@ const AddUserPage = () => {
               <input
                 name="firstname"
                 type="text"
+                value={firstname}
                 className="adduser-control"
                 placeholder="Enter Firstname"
                 onChange={(e) => setFirstname(e.target.value)}
@@ -75,6 +94,7 @@ const AddUserPage = () => {
               <input
                 name="lastname"
                 type="text"
+                value={lastname}
                 className="adduser-control"
                 placeholder="Enter Lastname"
                 onChange={(e) => setLastname(e.target.value)}
@@ -87,6 +107,7 @@ const AddUserPage = () => {
               <input
                 name="email"
                 type="text"
+                value={email}
                 className="adduser-control"
                 placeholder="Enter Email"
                 onChange={(e) => setEmail(e.target.value)}
@@ -99,6 +120,7 @@ const AddUserPage = () => {
               <input
                 name="department"
                 type="text"
+                value={department}
                 className="adduser-control"
                 placeholder="Enter Department"
                 onChange={(e) => setDepartment(e.target.value)}
@@ -110,6 +132,7 @@ const AddUserPage = () => {
               <input
                 name="role"
                 type="text"
+                value={role}
                 className="adduser-control"
                 placeholder="Enter Role"
                 onChange={(e) => setRole(e.target.value)}
@@ -121,6 +144,7 @@ const AddUserPage = () => {
             <div className="adduser-group">
               <input
                 type="submit"
+                onClick={() => openNotification('success')}
                 className="adduser-btn"
                 value="Add User"
               />

@@ -58,7 +58,7 @@ const UpdateUserPage = () => {
                 name="firstname"
                 type="text"
                 className="updateuser-control"
-                placeholder={updateUser.firstname}
+                value={firstname}
                 onChange={(e) => setFirstname(e.target.value)}
                 ref={register}
               />
@@ -69,7 +69,7 @@ const UpdateUserPage = () => {
                 name="lastname"
                 type="text"
                 className="updateuser-control"
-                placeholder={updateUser.lastname}
+                value={lastname}
                 onChange={(e) => setLastname(e.target.value)}
                 ref={register}
               />
@@ -80,7 +80,7 @@ const UpdateUserPage = () => {
                 name="email"
                 type="text"
                 className="updateuser-control"
-                placeholder={updateUser.email}
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 ref={register}
               />
@@ -91,7 +91,7 @@ const UpdateUserPage = () => {
                 name="department"
                 type="text"
                 className="updateuser-control"
-                placeholder={updateUser.department}
+                value={department}
                 onChange={(e) => setDepartment(e.target.value)}
                 ref={register}
               />
@@ -102,7 +102,7 @@ const UpdateUserPage = () => {
                 name="role"
                 type="text"
                 className="updateuser-control"
-                placeholder={updateUser.role}
+                value={role}
                 onChange={(e) => setRole(e.target.value)}
                 ref={register}
               />

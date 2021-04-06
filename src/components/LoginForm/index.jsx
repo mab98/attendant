@@ -8,7 +8,7 @@ import * as yup from 'yup';
 
 const schema = yup.object().shape({
   id: yup.string().required(),
-  pin: yup.number().typeError('PIN Code Must be a Number').test('len', 'Must be 4 digits', (val) => val.toString().length === 4).required(),
+  pin: yup.number().typeError('PIN Code Must be a Number').required(),
 });
 
 const LoginForm = ({
