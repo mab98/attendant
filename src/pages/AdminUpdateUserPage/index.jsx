@@ -1,23 +1,21 @@
 import './styles.css';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-
+import { notification } from 'antd';
 import { updateUserAction } from '../../store/actions';
+import AdminForm from '../../components/AdminForm';
 
-const schema = yup.object().shape({
-  firstname: yup.string().required(),
-  lastname: yup.string().required(),
-  email: yup.string().email().required(),
-  department: yup.string().required(),
-  role: yup.string().required(),
-});
+const openNotification = (type) => {
+  notification[type]({
+    message: 'User Updated Successfully',
+  });
+};
 
 const UpdateUserPage = () => {
+  const history = useHistory();
+
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state);
   const { userId } = useParams();
@@ -29,89 +27,40 @@ const UpdateUserPage = () => {
   const [department, setDepartment] = useState(updateUser.department);
   const [role, setRole] = useState(updateUser.role);
 
-  const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(schema),
-  });
-
   const updateUserSubmit = () => {
-    dispatch(
-      updateUserAction({
-        id: userId,
-        firstname,
-        lastname,
-        email,
-        department,
-        role,
-      }),
-    );
+    dispatch(updateUserAction({
+      id: userId, firstname, lastname, email, department, role,
+    }));
+    setFirstname('');
+    setLastname('');
+    setEmail('');
+    setDepartment('');
+    setRole('');
+    openNotification('success');
+    setTimeout(() => {
+      history.push('/admin/settings');
+    }, 200);
   };
 
   return (
     <div className="dashboard">
-
       <div className="updateuser">
         <div className="updateuser-container">
           <h1>Update User Page</h1>
-          <form onSubmit={handleSubmit(updateUserSubmit)}>
-            <div className="updateuser-group">
-              <input
-                name="firstname"
-                type="text"
-                className="updateuser-control"
-                value={firstname}
-                onChange={(e) => setFirstname(e.target.value)}
-                ref={register}
-              />
-              <p className="red">{errors.firstname?.message}</p>
-            </div>
-            <div className="updateuser-group">
-              <input
-                name="lastname"
-                type="text"
-                className="updateuser-control"
-                value={lastname}
-                onChange={(e) => setLastname(e.target.value)}
-                ref={register}
-              />
-              <p className="red">{errors.lastname?.message}</p>
-            </div>
-            <div className="updateuser-group">
-              <input
-                name="email"
-                type="text"
-                className="updateuser-control"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                ref={register}
-              />
-              <p className="red">{errors.email?.message}</p>
-            </div>
-            <div className="updateuser-group">
-              <input
-                name="department"
-                type="text"
-                className="updateuser-control"
-                value={department}
-                onChange={(e) => setDepartment(e.target.value)}
-                ref={register}
-              />
-              <p className="red">{errors.department?.message}</p>
-            </div>
-            <div className="updateuser-group">
-              <input
-                name="role"
-                type="text"
-                className="updateuser-control"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                ref={register}
-              />
-              <p className="red">{errors.role?.message}</p>
-            </div>
-            <div className="updateuser-group">
-              <input type="submit" className="updateuser-btn" value="Update User" />
-            </div>
-          </form>
+          <AdminForm
+            submitForm={updateUserSubmit}
+            firstname={firstname}
+            lastname={lastname}
+            email={email}
+            department={department}
+            role={role}
+            setFirstname={setFirstname}
+            setLastname={setLastname}
+            setEmail={setEmail}
+            setDepartment={setDepartment}
+            setRole={setRole}
+            btnName="Update"
+          />
         </div>
 
       </div>
