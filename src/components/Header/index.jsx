@@ -12,9 +12,17 @@ const Header = () => {
   return (
     <header className="header">
       <h1>
-        <Link to="/">
-          <span className="header-logo-text">Attendant</span>
-        </Link>
+        {isAdminLoggedin === true
+          ? (
+            <Link to="/admin/login">
+              <span className="header-logo-text">Attendant</span>
+            </Link>
+          )
+          : (
+            <Link to="/">
+              <span className="header-logo-text">Attendant</span>
+            </Link>
+          )}
       </h1>
       <div className="header-nav-items">
         <ul>
