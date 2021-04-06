@@ -68,7 +68,7 @@ const LoginForm = ({
 };
 
 LoginForm.propTypes = {
-  authenticate: PropTypes.string.isRequired,
+  authenticate: PropTypes.func.isRequired,
   setId: PropTypes.func.isRequired,
   setPin: PropTypes.func.isRequired,
   linkTo: PropTypes.string.isRequired,
