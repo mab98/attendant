@@ -2,6 +2,7 @@
 import './styles.css';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -96,6 +97,21 @@ const AdminForm = ({
       </div>
     </form>
   );
+};
+
+AdminForm.protoTypes = {
+  submitForm: PropTypes.func.isRequired,
+  firstname: PropTypes.string.isRequired,
+  lastname: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  department: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired,
+  setFirstname: PropTypes.func.isRequired,
+  setLastname: PropTypes.func.isRequired,
+  setEmail: PropTypes.func.isRequired,
+  setDepartment: PropTypes.func.isRequired,
+  setRole: PropTypes.func.isRequired,
+  btnName: PropTypes.bool.isRequired,
 };
 
 export default AdminForm;
