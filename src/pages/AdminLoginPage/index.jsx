@@ -1,11 +1,18 @@
 /* eslint-disable no-shadow */
 import './styles.css';
 import React, { useState } from 'react';
+import { notification } from 'antd';
 import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { loginAdminAction, loginAdminFailAction } from '../../store/actions';
+import { loginAdminAction } from '../../store/actions';
 import LoginForm from '../../components/LoginForm';
+
+const openNotification = (type) => {
+  notification[type]({
+    message: 'Incorrect Credentials',
+  });
+};
 
 const AdminLoginPage = () => {
   const [id, setId] = useState('');
@@ -25,7 +32,7 @@ const AdminLoginPage = () => {
       window.location = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=gist`;
       dispatch(loginAdminAction({ isAdminLoggedin: true }));
     } else {
-      dispatch(loginAdminFailAction());
+      openNotification('error');
     }
   };
 

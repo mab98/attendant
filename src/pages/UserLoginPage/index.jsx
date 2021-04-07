@@ -1,15 +1,22 @@
 import './styles.css';
 import React, { useEffect, useState } from 'react';
+import { notification } from 'antd';
 import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { loginUserAction, loginUserFailAction } from '../../store/actions';
+import { loginUserAction } from '../../store/actions';
 import { loadGistData } from '../../store/reducers';
 import LoginForm from '../../components/LoginForm';
 
+const openNotification = (type) => {
+  notification[type]({
+    message: 'Incorrect Credentials',
+  });
+};
+
 const UserLoginPage = () => {
   const {
-    currentUser, incorrectUserCredentials, users,
+    currentUser, users,
     isAdminLoggedin,
   } = useSelector((state) => state);
   const [id, setId] = useState('ABC-1');
@@ -37,7 +44,7 @@ const UserLoginPage = () => {
     if (reqUser.id !== undefined) {
       dispatch(loginUserAction({ currentUser: reqUser }));
     } else {
-      dispatch(loginUserFailAction());
+      openNotification('error');
     }
   };
 
@@ -50,7 +57,7 @@ const UserLoginPage = () => {
       <h1>User Login Page</h1>
       {
         isAdminLoggedin ? null : (
-          <LoginForm authenticate={authenticateUser} setId={setId} setPin={setPin} linkTo="/admin/login" entityTo="Admin" incorrectCredentials={incorrectUserCredentials} />
+          <LoginForm authenticate={authenticateUser} setId={setId} setPin={setPin} linkTo="/admin/login" entityTo="Admin" />
         )
       }
 

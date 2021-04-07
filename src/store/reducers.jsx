@@ -4,9 +4,9 @@
 import { v1 as uuidv1 } from 'uuid';
 
 import {
-  LOGIN_ADMIN, LOGIN_ADMIN_FAIL, LOGOUT_ADMIN,
+  LOGIN_ADMIN, LOGOUT_ADMIN,
   CHANGE_HOURS, ADD_USER, DELETE_USER, UPDATE_USER,
-  LOGIN_USER, LOGIN_USER_FAIL, LOGOUT_USER, CHANGE_AVAILABILITY,
+  LOGIN_USER, LOGOUT_USER, CHANGE_AVAILABILITY,
   CHANGE_PIN, NO_PUNCH_OUT, SET_REDUCER_STATE, setReducerState,
 } from './actions';
 
@@ -31,8 +31,6 @@ const initialState = {
   users: [],
   isAdminLoggedin: false,
   isUserLoggedin: false,
-  incorrectAdminCredentials: false,
-  incorrectUserCredentials: false,
   currentUser: '',
   minWorkHours: '9',
   officeStartHours: '09:00',
@@ -50,10 +48,7 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
-        incorrectAdminCredentials: false,
       };
-    case LOGIN_ADMIN_FAIL:
-      return { ...state, incorrectAdminCredentials: true };
     case LOGOUT_ADMIN:
       localStorage.removeItem('token');
       return { ...state, isAdminLoggedin: false };
@@ -89,11 +84,8 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         ...action.payload,
         isUserLoggedin: true,
-        incorrectUserCredentials: false,
         newUserRecord,
       };
-    case LOGIN_USER_FAIL:
-      return { ...state, incorrectUserCredentials: true };
     case LOGOUT_USER:
       newUserRecord = false;
       localStorage.removeItem('token');

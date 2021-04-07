@@ -1,5 +1,4 @@
 export const LOGIN_ADMIN = 'LOGIN_ADMIN';
-export const LOGIN_ADMIN_FAIL = 'LOGIN_ADMIN_FAIL';
 export const LOGOUT_ADMIN = 'LOGOUT_ADMIN';
 export const CHANGE_HOURS = 'CHANGE_HOURS';
 
@@ -8,7 +7,6 @@ export const DELETE_USER = 'DELETE_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 
 export const LOGIN_USER = 'LOGIN_USER';
-export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const CHANGE_AVAILABILITY = 'CHANGE_AVAILABILITY';
 export const CHANGE_PIN = 'CHANGE_PIN';
@@ -42,10 +40,6 @@ export const loginAdminAction = (data) => ({
   payload: data,
 });
 
-export const loginAdminFailAction = () => ({
-  type: LOGIN_ADMIN_FAIL,
-});
-
 export const logoutAdminAction = () => ({
   type: LOGOUT_ADMIN,
 });
@@ -53,10 +47,6 @@ export const logoutAdminAction = () => ({
 export const loginUserAction = (data) => ({
   type: LOGIN_USER,
   payload: data,
-});
-
-export const loginUserFailAction = () => ({
-  type: LOGIN_USER_FAIL,
 });
 
 export const logoutUserAction = () => ({

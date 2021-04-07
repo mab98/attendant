@@ -2,7 +2,6 @@ import './styles.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Alert } from 'reactstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -13,7 +12,7 @@ const schema = yup.object().shape({
 });
 
 const LoginForm = ({
-  authenticate, setId, setPin, linkTo, entityTo, incorrectCredentials,
+  authenticate, setId, setPin, linkTo, entityTo,
 }) => {
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
@@ -58,11 +57,6 @@ const LoginForm = ({
           </button>
         </Link>
       </div>
-      {incorrectCredentials === true ? (
-        <Alert style={{ textAlign: 'center', color: 'red' }}>
-          INCORRECT CREDENTIALS
-        </Alert>
-      ) : ''}
 
     </form>
   );
@@ -74,7 +68,6 @@ LoginForm.propTypes = {
   setPin: PropTypes.func.isRequired,
   linkTo: PropTypes.string.isRequired,
   entityTo: PropTypes.string.isRequired,
-  incorrectCredentials: PropTypes.bool.isRequired,
 };
 
 export default LoginForm;
