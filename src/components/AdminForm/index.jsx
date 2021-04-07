@@ -3,17 +3,18 @@ import './styles.css';
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Select } from 'antd';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+const { Option } = Select;
+
 const schema = yup.object().shape({
   firstname: yup.string().required(),
   lastname: yup.string().required(),
   email: yup.string().email().required(),
-  department: yup.string().required(),
-  role: yup.string().required(),
 });
 
 const AdminForm = ({
@@ -23,6 +24,14 @@ const AdminForm = ({
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
+
+  function handleDepartment(value) {
+    setDepartment(value);
+  }
+  function handleRole(value) {
+    setRole(value);
+  }
+
   return (
     <form onSubmit={handleSubmit(submitForm)}>
       <div className="adduser-group">
@@ -64,30 +73,25 @@ const AdminForm = ({
 
       </div>
       <div className="adduser-group">
-        <input
-          name="department"
-          type="text"
-          value={department}
+        <Select
           className="adduser-control"
-          placeholder="Enter Department"
-          onChange={(e) => setDepartment(e.target.value)}
-          ref={register}
-        />
-        <p className="red">{errors.department?.message}</p>
+          defaultValue={department === '' ? 'Choose Department' : department}
+          style={{ width: '100%' }}
+          onChange={handleDepartment}
+        >
+          <Option value="SE">Software Engineering</Option>
+          <Option value="DE">Design Engineering</Option>
+          <Option value="DV">DevOps Engineering</Option>
+        </Select>
       </div>
       <div className="adduser-group">
-        <input
-          name="role"
-          type="text"
-          value={role}
-          className="adduser-control"
-          placeholder="Enter Role"
-          onChange={(e) => setRole(e.target.value)}
-          ref={register}
-        />
-        <p className="red">{errors.role?.message}</p>
-
+        <Select className="adduser-control" defaultValue={role === '' ? 'Choose Role' : role} style={{ width: '100%' }} onChange={handleRole}>
+          <Option value="Manager">Manager</Option>
+          <Option value="Mentor">Mentor</Option>
+          <Option value="Developer">Developer</Option>
+        </Select>
       </div>
+
       <div className="adduser-group">
         <input
           type="submit"
