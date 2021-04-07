@@ -10,15 +10,16 @@ import SearchBox from '../../components/SearchBox';
 
 const PunchCardPage = () => {
   const {
-    currentUser, users, officeStartHours, officeEndHours, fir,
+    currentUser, users, officeStartHours, officeEndHours,
   } = useSelector((state) => state);
+  console.log('CURRENT USER:', currentUser);
 
   const [searchField, setSearchField] = useState('');
   const [late, setLate] = useState(false);
 
-  let filteredUser;
+  let filteredRecord;
   if (currentUser !== '') {
-    filteredUser = currentUser.records
+    filteredRecord = currentUser.records
       .filter((user) => user.date.includes(searchField));
   }
   const dispatch = useDispatch();
@@ -170,9 +171,9 @@ const PunchCardPage = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {filteredUser ? (
+                        {filteredRecord ? (
 
-                          filteredUser.map((record) => (
+                          filteredRecord.map((record) => (
                             <tr key={record.id} style={{ border: '1px solid black' }}>
                               <td className="records-table-cells">{record.date}</td>
                               <td className="records-table-cells">{record.timeIn}</td>

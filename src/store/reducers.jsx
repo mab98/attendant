@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 /* eslint-disable no-case-declarations */
 import { v1 as uuidv1 } from 'uuid';
@@ -116,7 +117,8 @@ export const rootReducer = (state = initialState, action) => {
       currentUser.available = action.payload;
       const alrERec = currentUser.records
         .find((record) => record.date === new Date().toLocaleDateString());
-      if (action.payload === 'Available' && currentUser.records.length > 0) {
+      if (action.payload === 'Available' && currentUser.records.length > 0
+      && currentUser.records[currentUser.records.length - 1].timeIn === '') {
         alrERec.timeIn = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
       } else if (currentUser.records.length > 0) {
         if (currentUser.records[currentUser.records.length - 1].timeOut === '') {
@@ -125,12 +127,11 @@ export const rootReducer = (state = initialState, action) => {
         }
         if (currentUser.records[currentUser.records.length - 1].timeIn !== '') {
           const sum = currentUser.records
-          // eslint-disable-next-line no-param-reassign
             .reduce((acc, record) => acc += parseInt(record.workHours, 10), 0);
           currentUser.avgWorkHours = sum / currentUser.records.length;
         }
       }
-      return { ...state };
+      return { ...state, currentUser };
     case CHANGE_PIN:
       return { ...state, ...action.payload };
     case NO_PUNCH_OUT:

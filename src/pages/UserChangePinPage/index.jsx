@@ -26,9 +26,10 @@ const UserChangePinPage = () => {
   const updateUser = users.find((user) => user.id === currentUser.id);
 
   const changePin = () => {
+    currentUser.pin = newPin;
     updateUser.pin = newPin;
     updateUser.firstTime = false;
-    dispatch(changePinUserAction({ users }));
+    dispatch(changePinUserAction({ users, currentUser }));
   };
 
   useEffect(() => {
