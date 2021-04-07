@@ -1,29 +1,35 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import './styles.css';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Select } from 'antd';
-
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import {
+  Form, Input, Button, Select,
+} from 'antd';
 
 const { Option } = Select;
 
-const schema = yup.object().shape({
-  firstname: yup.string().required(),
-  lastname: yup.string().required(),
-  email: yup.string().email().required(),
-});
+const layout = {
+  labelCol: {
+    span: 8,
+  },
+  wrapperCol: {
+    span: 16,
+  },
+};
+const tailLayout = {
+  wrapperCol: {
+    offset: 8,
+    span: 16,
+  },
+};
 
 const AdminForm = ({
   submitForm, firstname, lastname, email, department, role, setFirstname, setLastname, setEmail,
   setDepartment, setRole, btnName,
 }) => {
-  const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(schema),
-  });
+  const [form] = Form.useForm();
 
   function handleDepartment(value) {
     setDepartment(value);
@@ -33,73 +39,114 @@ const AdminForm = ({
   }
 
   return (
-    <form onSubmit={handleSubmit(submitForm)}>
+    <Form {...layout} form={form} name="control-hooks" onFinish={submitForm}>
       <div className="adduser-group">
-        <input
+        <Form.Item
           name="firstname"
-          type="text"
-          value={firstname}
-          className="adduser-control"
-          placeholder="Enter Firstname"
-          onChange={(e) => setFirstname(e.target.value)}
-          ref={register}
-        />
-        <p className="red">{errors.firstname?.message}</p>
-      </div>
-      <div className="adduser-group">
-        <input
-          name="lastname"
-          type="text"
-          value={lastname}
-          className="adduser-control"
-          placeholder="Enter Lastname"
-          onChange={(e) => setLastname(e.target.value)}
-          ref={register}
-        />
-        <p className="red">{errors.lastname?.message}</p>
-
-      </div>
-      <div className="adduser-group">
-        <input
-          name="email"
-          type="text"
-          value={email}
-          className="adduser-control"
-          placeholder="Enter Email"
-          onChange={(e) => setEmail(e.target.value)}
-          ref={register}
-        />
-        <p className="red">{errors.email?.message}</p>
-
-      </div>
-      <div className="adduser-group">
-        <Select
-          className="adduser-control"
-          defaultValue={department === '' ? 'Choose Department' : department}
-          style={{ width: '100%' }}
-          onChange={handleDepartment}
+          label="Firstname"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
-          <Option value="SE">Software Engineering</Option>
-          <Option value="DE">Design Engineering</Option>
-          <Option value="DV">DevOps Engineering</Option>
-        </Select>
+          <Input
+            value={firstname}
+            placeholder="Enter Firstname"
+            onChange={(e) => setFirstname(e.target.value)}
+          />
+        </Form.Item>
       </div>
       <div className="adduser-group">
-        <Select className="adduser-control" defaultValue={role === '' ? 'Choose Role' : role} style={{ width: '100%' }} onChange={handleRole}>
-          <Option value="Manager">Manager</Option>
-          <Option value="Mentor">Mentor</Option>
-          <Option value="Developer">Developer</Option>
-        </Select>
+        <Form.Item
+          name="lastname"
+          label="Lastname"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input
+            value={lastname}
+            placeholder="Enter Lastname"
+            onChange={(e) => setLastname(e.target.value)}
+          />
+        </Form.Item>
+      </div>
+      <div className="adduser-group">
+        <Form.Item
+          name="email"
+          label="Email"
+          rules={[
+            {
+              type: 'email',
+              required: true,
+            },
+          ]}
+        >
+          <Input
+            value={email}
+            placeholder="Enter Email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Form.Item>
+      </div>
+      <div className="adduser-group">
+        <Form.Item
+          name="department"
+          label="Department"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Select
+            placeholder="Select a Department"
+            value={department === '' ? 'Choose Department' : department}
+            style={{ width: '100%' }}
+            onChange={handleDepartment}
+            allowClear
+          >
+            <Option value="SE">Software Engineering</Option>
+            <Option value="DE">Design Engineering</Option>
+            <Option value="DV">DevOps Engineering</Option>
+          </Select>
+        </Form.Item>
+      </div>
+      <div className="adduser-group">
+        <Form.Item
+          name="role"
+          label="Role"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Select
+            placeholder="Select a Role"
+            value={role === '' ? 'Choose Role' : role}
+            style={{ width: '100%' }}
+            onChange={handleRole}
+            allowClear
+          >
+            <Option value="Manager">Manager</Option>
+            <Option value="Mentor">Mentor</Option>
+            <Option value="Developer">Developer</Option>
+          </Select>
+        </Form.Item>
       </div>
 
       <div className="adduser-group">
-        <input
-          type="submit"
-          className="adduser-btn"
-          value={`${btnName} User`}
-        />
+        <Form.Item {...tailLayout}>
+          <Button type="primary" htmlType="submit">
+            {`${btnName} User`}
+          </Button>
+        </Form.Item>
       </div>
-    </form>
+    </Form>
   );
 };
 
