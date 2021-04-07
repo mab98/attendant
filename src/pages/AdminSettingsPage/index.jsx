@@ -128,7 +128,7 @@ const SettingsPage = () => {
                       type="time"
                       id="officeStartHours"
                       className="settings-control"
-                      placeholder={officeStartHours}
+                      value={officeStartHours}
                       onChange={(e) => setOfficeStartHoursS(e.target.value)}
                     />
                   </label>
@@ -140,7 +140,7 @@ const SettingsPage = () => {
                       type="time"
                       id="officeEndHours"
                       className="settings-control"
-                      placeholder={officeEndHours}
+                      value={officeEndHours}
                       onChange={(e) => setOfficeEndHoursS(e.target.value)}
                     />
                   </label>
