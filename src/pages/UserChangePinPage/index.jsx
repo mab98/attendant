@@ -1,7 +1,7 @@
 import './styles.css';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,10 +10,11 @@ import * as yup from 'yup';
 import { changePinUserAction } from '../../store/actions';
 
 const schema = yup.object().shape({
-  pin: yup.number().typeError('PIN Code Must b a Number').test('len', 'Must be 4 digits', (val) => val.toString().length === 4).required(),
+  pin: yup.number().typeError('PIN Code must be a Number').test('len', 'Must be 4 digits', (val) => val.toString().length === 4).required(),
 });
 
 const UserChangePinPage = () => {
+  const history = useHistory();
   const [newPin, setNewPin] = useState('');
 
   const { users, currentUser } = useSelector((state) => state);
@@ -44,9 +45,8 @@ const UserChangePinPage = () => {
         code: newUrl[1],
       };
 
-      const PROXY_URL = 'http://localhost:5000/authorize/user/changepin';
+      const PROXY_URL = 'http://localhost:5000/authorize/user';
 
-      // Use code parameter and other parameters to make POST request to proxy_server
       fetch(PROXY_URL, {
         method: 'POST',
         body: JSON.stringify(requestData),
@@ -62,10 +62,9 @@ const UserChangePinPage = () => {
     }
   }, []);
 
-  const CLIENT_ID = 'd0b4cbccb3d20f7137d7';
   if (updateUser.firstTime === false) {
-    window.location = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=gist`;
-    return <Redirect to="/user/punchcard" />;
+    setTimeout(() => history.push('/user/punchcard'),
+      100);
   }
 
   return (

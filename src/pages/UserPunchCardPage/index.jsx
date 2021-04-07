@@ -27,36 +27,6 @@ const PunchCardPage = () => {
     availability = users.find((user) => user.id === currentUser.id).available;
   }
 
-  useEffect(() => {
-    const url = window.location.href;
-    const hasCode = url.includes('?code=');
-
-    if (hasCode) {
-      const newUrl = url.split('?code=');
-      window.history.pushState({}, null, newUrl[0]);
-
-      const requestData = {
-        code: newUrl[1],
-      };
-
-      const PROXY_URL = 'http://localhost:5000/authorize/user/punchcard';
-
-      // Use code parameter and other parameters to make POST request to proxy_server
-      fetch(PROXY_URL, {
-        method: 'POST',
-        body: JSON.stringify(requestData),
-      })
-        .then((response) => response.json())
-        .then((token) => {
-          localStorage.setItem('token', JSON.stringify(token));
-          console.log('SET-TOKEN-2:', token.token);
-        })
-        .catch((error) => {
-          console.log('ERROR:', error);
-        });
-    }
-  }, []);
-
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
