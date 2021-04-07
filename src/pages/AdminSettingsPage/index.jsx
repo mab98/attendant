@@ -113,10 +113,10 @@ const SettingsPage = () => {
                   <label htmlFor="minWorkHours">
                     Minimum Work Hours
                     <input
-                      type="text"
+                      type="button"
                       id="minWorkHours"
                       className="settings-control"
-                      placeholder={minWorkHours}
+                      value={minWorkHours}
                     />
                   </label>
 

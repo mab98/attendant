@@ -12,7 +12,6 @@ const PunchCardPage = () => {
   const {
     currentUser, users, officeStartHours, officeEndHours,
   } = useSelector((state) => state);
-  console.log('CURRENT USER:', currentUser);
 
   const [searchField, setSearchField] = useState('');
   const [late, setLate] = useState(false);
