@@ -25,14 +25,14 @@ function insertUrlParams(params) {
 }
 
 const SettingsPage = () => {
-  const [officeStartHoursS, setOfficeStartHoursS] = useState(null);
-  const [officeEndHoursS, setOfficeEndHoursS] = useState(null);
-
   const isAdminLoggedin = useSelector((state) => state.isAdminLoggedin);
   const users = useSelector((state) => state.users);
   const minWorkHours = useSelector((state) => state.minWorkHours);
   const officeStartHours = useSelector((state) => state.officeStartHours);
   const officeEndHours = useSelector((state) => state.officeEndHours);
+
+  const [officeStartHoursS, setOfficeStartHoursS] = useState(officeStartHours);
+  const [officeEndHoursInComp, setOfficeEndHoursInComp] = useState(officeEndHours);
 
   const [searchField, setSearchField] = useState('');
   const filteredUser = users
@@ -46,7 +46,7 @@ const SettingsPage = () => {
     dispatch(
       changeHours({
         officeStartHours: officeStartHoursS,
-        officeEndHours: officeEndHoursS,
+        officeEndHours: officeEndHoursInComp,
       }),
     );
   };
@@ -137,7 +137,7 @@ const SettingsPage = () => {
                       type="time"
                       id="officeStartHours"
                       className="settings-control"
-                      value={officeStartHours}
+                      value={officeStartHoursS}
                       onChange={(e) => setOfficeStartHoursS(e.target.value)}
                     />
                   </label>
@@ -149,8 +149,8 @@ const SettingsPage = () => {
                       type="time"
                       id="officeEndHours"
                       className="settings-control"
-                      value={officeEndHours}
-                      onChange={(e) => setOfficeEndHoursS(e.target.value)}
+                      value={officeEndHoursInComp}
+                      onChange={(e) => setOfficeEndHoursInComp(e.target.value)}
                     />
                   </label>
                 </div>

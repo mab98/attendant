@@ -25,7 +25,7 @@ const AdminLoginPage = () => {
   const isAdminLoggedin = useSelector((state) => state.isAdminLoggedin);
 
   const authenticateAdmin = () => {
-    if (id === 'admin' && pin === '1111') {
+    if (id === constants.AdminId && pin === constants.AdminPin) {
       window.location = `https://github.com/login/oauth/authorize?client_id=${constants.AdminClientId}&scope=gist`;
       dispatch(loginAdminAction({ isAdminLoggedin: true }));
     } else {
