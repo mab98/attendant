@@ -21,9 +21,11 @@ const SettingsPage = () => {
   const [officeStartHoursS, setOfficeStartHoursS] = useState(null);
   const [officeEndHoursS, setOfficeEndHoursS] = useState(null);
 
-  const {
-    isAdminLoggedin, users, minWorkHours, officeStartHours, officeEndHours,
-  } = useSelector((state) => state);
+  const isAdminLoggedin = useSelector((state) => state.isAdminLoggedin);
+  const users = useSelector((state) => state.users);
+  const minWorkHours = useSelector((state) => state.minWorkHours);
+  const officeStartHours = useSelector((state) => state.officeStartHours);
+  const officeEndHours = useSelector((state) => state.officeEndHours);
 
   const [searchField, setSearchField] = useState('');
   const filteredUser = users

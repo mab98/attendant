@@ -20,11 +20,7 @@ const AdminLoginPage = () => {
 
   const dispatch = useDispatch();
 
-  const state = useSelector((state) => state);
-
-  const {
-    isAdminLoggedin, incorrectAdminCredentials,
-  } = state;
+  const isAdminLoggedin = useSelector((state) => state.isAdminLoggedin);
 
   const CLIENT_ID = '4c3c1d91cf3283d91a1b';
   const authenticateAdmin = () => {
@@ -36,14 +32,14 @@ const AdminLoginPage = () => {
     }
   };
 
-  if (isAdminLoggedin === true) {
+  if (isAdminLoggedin) {
     return <Redirect to="/admin/dashboard" />;
   }
 
   return (
     <section className="loginpage">
       <h1>Admin Login Page</h1>
-      <LoginForm authenticate={authenticateAdmin} setId={setId} setPin={setPin} linkTo="/user/login" entityTo="User" incorrectCredentials={incorrectAdminCredentials} />
+      <LoginForm authenticate={authenticateAdmin} setId={setId} setPin={setPin} linkTo="/user/login" entityTo="User" />
 
     </section>
   );

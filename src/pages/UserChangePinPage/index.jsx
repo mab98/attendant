@@ -17,7 +17,9 @@ const UserChangePinPage = () => {
   const history = useHistory();
   const [newPin, setNewPin] = useState('');
 
-  const { users, currentUser } = useSelector((state) => state);
+  const currentUser = useSelector((state) => state.currentUser);
+  const users = useSelector((state) => state.users);
+
   const dispatch = useDispatch();
 
   const { register, handleSubmit, errors } = useForm({

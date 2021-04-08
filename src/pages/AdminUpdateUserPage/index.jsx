@@ -17,8 +17,11 @@ const UpdateUserPage = () => {
   const history = useHistory();
 
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state);
+
   const { userId } = useParams();
+
+  const users = useSelector((state) => state.users);
+
   const updateUser = users.find((user) => user.id === userId);
 
   const [firstname, setFirstname] = useState(updateUser.firstname);

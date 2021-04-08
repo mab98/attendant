@@ -11,8 +11,8 @@ import SearchBox from '../../components/SearchBox';
 const { TabPane } = Tabs;
 
 const AdminAvailabilityPage = () => {
-  const state = useSelector((state) => state);
-  const { isAdminLoggedin, users } = state;
+  const isAdminLoggedin = useSelector((state) => state.isAdminLoggedin);
+  const users = useSelector((state) => state.users);
   const available = users.filter((item) => (item.available === 'Available'));
   const notAvailable = users.filter((item) => (item.available === 'Not Available'));
   const onLeave = users.filter((item) => (item.available === 'On Leave'));

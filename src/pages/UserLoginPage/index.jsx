@@ -15,12 +15,12 @@ const openNotification = (type) => {
 };
 
 const UserLoginPage = () => {
-  const {
-    currentUser, users,
-    isAdminLoggedin,
-  } = useSelector((state) => state);
-  const [id, setId] = useState('ABC-1');
-  const [pin, setPin] = useState('0000');
+  const isAdminLoggedin = useSelector((state) => state.isAdminLoggedin);
+  const users = useSelector((state) => state.users);
+  const currentUser = useSelector((state) => state.currentUser);
+
+  const [id, setId] = useState('');
+  const [pin, setPin] = useState('');
 
   const dispatch = useDispatch();
 

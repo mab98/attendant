@@ -9,9 +9,10 @@ import './styles.css';
 import SearchBox from '../../components/SearchBox';
 
 const PunchCardPage = () => {
-  const {
-    currentUser, users, officeStartHours, officeEndHours,
-  } = useSelector((state) => state);
+  const users = useSelector((state) => state.users);
+  const currentUser = useSelector((state) => state.currentUser);
+  const officeStartHours = useSelector((state) => state.officeStartHours);
+  const officeEndHours = useSelector((state) => state.officeEndHours);
 
   const [searchField, setSearchField] = useState('');
   const [late, setLate] = useState(false);
