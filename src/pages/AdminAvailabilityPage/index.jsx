@@ -43,7 +43,7 @@ const AdminAvailabilityPage = () => {
         .then((response) => response.json())
         .then((token) => {
           localStorage.setItem('token', JSON.stringify(token));
-          console.log('SET-TOKEN-1:', token.token);
+          console.log('SetAdminToken:', token.token);
         })
         .catch((error) => {
           console.log('ERROR:', error);
