@@ -18,6 +18,12 @@ const openNotification = (type) => {
   });
 };
 
+function insertUrlParams(params) {
+  const actualRoute = routes.AdminUpdateUser;
+  const updatedRoute = actualRoute.replace(':userId', params);
+  return updatedRoute;
+}
+
 const SettingsPage = () => {
   const [officeStartHoursS, setOfficeStartHoursS] = useState(null);
   const [officeEndHoursS, setOfficeEndHoursS] = useState(null);
@@ -82,7 +88,7 @@ const SettingsPage = () => {
                       <p className="user-role">{user.role}</p>
                       <Link
                         to={{
-                          pathname: `/admin/updateuser/${user.id}`,
+                          pathname: insertUrlParams(user.id),
                         }}
                       >
                         <button
