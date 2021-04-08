@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { notification } from 'antd';
 import { Link } from 'react-router-dom';
+import routes from '../../routes.json';
 import SearchBox from '../../components/SearchBox';
 import { changeHours, deleteUserAction } from '../../store/actions';
 import './styles.css';
@@ -104,7 +105,7 @@ const SettingsPage = () => {
                 : ''}
             </div>
             <div className="settings-group">
-              <Link to="/admin/adduser">
+              <Link to={routes.AdminAddUser}>
                 <button type="button" className="settings-btn">Add New User</button>
               </Link>
             </div>

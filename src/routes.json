@@ -1,0 +1,12 @@
+{
+    "Home": "/",
+    "UserLogin": "/user/login",
+    "AdminLogin": "/admin/login",
+    "AdminDashboard": "/admin/dashboard",
+    "AdminSettings": "/admin/settings",
+    "AdminAddUser": "/admin/adduser",
+    "AdminUpdateUser": "/admin/updateuser/:userId",
+    "AdminStats": "/admin/stats",
+    "UserPunchcard": "/user/punchcard",
+    "UserChangePin": "/user/changepin"
+}

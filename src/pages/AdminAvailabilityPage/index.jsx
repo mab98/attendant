@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './styles.css';
 import { Tabs } from 'antd';
+import routes from '../../routes.json';
 import TableHeadings from '../../components/TableHeadings';
 import SearchBox from '../../components/SearchBox';
 
@@ -124,12 +125,12 @@ const AdminAvailabilityPage = () => {
               </Tabs>
             </div>
             <div className="dashboard-group">
-              <Link to="/admin/stats">
+              <Link to={routes.AdminStats}>
                 <button type="button" className="dashboard-btn">Overall Stats</button>
               </Link>
             </div>
             <div className="dashboard-group">
-              <Link to="/admin/settings">
+              <Link to={routes.AdminSettings}>
                 <button type="button" className="dashboard-btn">Settings</button>
               </Link>
             </div>

@@ -2,6 +2,7 @@ import './App.css';
 
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import routes from './routes.json';
 
 // layouts
 import MainLayout from './layouts/MainLayout';
@@ -23,13 +24,13 @@ function App() {
       <Switch>
         <Route
           exact
-          path="/"
+          path={routes.Home}
           render={() => (
-            <Redirect to="/user/login" />
+            <Redirect to={routes.UserLogin} />
           )}
         />
         <Route
-          path="/user/login"
+          path={routes.UserLogin}
           render={() => (
             <MainLayout>
               <UserLoginPage />
@@ -37,7 +38,7 @@ function App() {
           )}
         />
         <Route
-          path="/admin/login"
+          path={routes.AdminLogin}
           render={() => (
             <MainLayout>
               <AdminLoginPage />
@@ -45,7 +46,7 @@ function App() {
           )}
         />
         <Route
-          path="/admin/dashboard"
+          path={routes.AdminDashboard}
           render={() => (
             <MainLayout>
               <AdminAvailabilityPage />
@@ -53,7 +54,7 @@ function App() {
           )}
         />
         <Route
-          path="/admin/settings"
+          path={routes.AdminSettings}
           render={() => (
             <MainLayout>
               <SettingsPage />
@@ -61,7 +62,7 @@ function App() {
           )}
         />
         <Route
-          path="/admin/adduser"
+          path={routes.AdminAddUser}
           render={() => (
             <MainLayout>
               <AddUserPage />
@@ -69,7 +70,7 @@ function App() {
           )}
         />
         <Route
-          path="/admin/updateuser/:userId"
+          path={routes.AdminUpdateUser}
           render={() => (
             <MainLayout>
               <UpdateUserPage />
@@ -77,7 +78,7 @@ function App() {
           )}
         />
         <Route
-          path="/admin/stats"
+          path={routes.AdminStats}
           render={() => (
             <MainLayout>
               <AdminStatsPage />
@@ -85,7 +86,7 @@ function App() {
           )}
         />
         <Route
-          path="/user/punchcard"
+          path={routes.UserPunchcard}
           render={() => (
             <MainLayout>
               <PunchCardPage />
@@ -93,7 +94,7 @@ function App() {
           )}
         />
         <Route
-          path="/user/changepin"
+          path={routes.UserChangePin}
           render={() => (
             <MainLayout>
               <UserChangePinPage />

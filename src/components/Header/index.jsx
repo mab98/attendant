@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import routes from '../../routes.json';
 import { logoutAdminAction, logoutUserAction } from '../../store/actions';
 import './styles.css';
 import LogOut from '../LogOut';
@@ -15,12 +16,12 @@ const Header = () => {
       <h1>
         {isAdminLoggedin === true
           ? (
-            <Link to="/admin/login">
+            <Link to={routes.AdminLogin}>
               <span className="header-logo-text">Attendant</span>
             </Link>
           )
           : (
-            <Link to="/">
+            <Link to={routes.Home}>
               <span className="header-logo-text">Attendant</span>
             </Link>
           )}

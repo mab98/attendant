@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { notification } from 'antd';
 import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import routes from '../../routes.json';
 
 import { loginAdminAction } from '../../store/actions';
 import LoginForm from '../../components/LoginForm';
@@ -33,13 +34,13 @@ const AdminLoginPage = () => {
   };
 
   if (isAdminLoggedin) {
-    return <Redirect to="/admin/dashboard" />;
+    return <Redirect to={routes.AdminDashboard} />;
   }
 
   return (
     <section className="loginpage">
       <h1>Admin Login Page</h1>
-      <LoginForm authenticate={authenticateAdmin} setId={setId} setPin={setPin} linkTo="/user/login" entityTo="User" />
+      <LoginForm authenticate={authenticateAdmin} setId={setId} setPin={setPin} linkTo={routes.UserLogin} entityTo="User" />
 
     </section>
   );

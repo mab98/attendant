@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { notification } from 'antd';
 import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import routes from '../../routes.json';
 
 import { loginUserAction } from '../../store/actions';
 import { loadGistData } from '../../store/reducers';
@@ -49,7 +50,7 @@ const UserLoginPage = () => {
   };
 
   if (currentUser !== '') {
-    return <Redirect to="/user/changepin" />;
+    return <Redirect to={routes.UserChangePin} />;
   }
 
   return (
@@ -57,7 +58,7 @@ const UserLoginPage = () => {
       <h1>User Login Page</h1>
       {
         isAdminLoggedin ? null : (
-          <LoginForm authenticate={authenticateUser} setId={setId} setPin={setPin} linkTo="/admin/login" entityTo="Admin" />
+          <LoginForm authenticate={authenticateUser} setId={setId} setPin={setPin} linkTo={routes.AdminLogin} entityTo="Admin" />
         )
       }
 
