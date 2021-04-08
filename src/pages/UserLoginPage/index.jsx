@@ -4,6 +4,7 @@ import { notification } from 'antd';
 import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import routes from '../../routes.json';
+import constants from '../../constants.json';
 
 import { loginUserAction } from '../../store/actions';
 import { loadGistData } from '../../store/reducers';
@@ -32,11 +33,10 @@ const UserLoginPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const CLIENT_ID = 'ebef7c80ac59d127b94a';
   const authenticateUser = () => {
     const reqUser = users.reduce((acc, item) => {
       if (id === item.id && pin === item.pin) {
-        window.location = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=gist`;
+        window.location = `https://github.com/login/oauth/authorize?client_id=${constants.UserClientId}&scope=gist`;
         return item;
       }
       return acc;

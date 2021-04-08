@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import './styles.css';
 import { Tabs } from 'antd';
 import routes from '../../routes.json';
+import constants from '../../constants.json';
 import TableHeadings from '../../components/TableHeadings';
 import SearchBox from '../../components/SearchBox';
 
@@ -35,9 +36,7 @@ const AdminAvailabilityPage = () => {
         code: newUrl[1],
       };
 
-      const PROXY_URL = 'http://localhost:5000/authorize/admin';
-
-      fetch(PROXY_URL, {
+      fetch(constants.AdminProxyUrl, {
         method: 'POST',
         body: JSON.stringify(requestData),
       })

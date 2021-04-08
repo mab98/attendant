@@ -8,6 +8,7 @@ import { notification } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addUserAction } from '../../store/actions';
+import routes from '../../routes.json';
 import AdminForm from '../../components/AdminForm';
 
 const openNotification = (type) => {
@@ -40,7 +41,7 @@ const AddUserPage = () => {
     setRole('');
     openNotification('success');
     setTimeout(() => {
-      history.push('/admin/settings');
+      history.push(routes.AdminSettings);
     }, 200);
   };
 

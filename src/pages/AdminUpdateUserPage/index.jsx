@@ -2,8 +2,9 @@ import './styles.css';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-
 import { notification } from 'antd';
+import routes from '../../routes.json';
+
 import { updateUserAction } from '../../store/actions';
 import AdminForm from '../../components/AdminForm';
 
@@ -41,7 +42,7 @@ const UpdateUserPage = () => {
     setRole('');
     openNotification('success');
     setTimeout(() => {
-      history.push('/admin/settings');
+      history.push(routes.AdminSettings);
     }, 200);
   };
 

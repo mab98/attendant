@@ -5,6 +5,7 @@ import { notification } from 'antd';
 import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import routes from '../../routes.json';
+import constants from '../../constants.json';
 
 import { loginAdminAction } from '../../store/actions';
 import LoginForm from '../../components/LoginForm';
@@ -23,10 +24,9 @@ const AdminLoginPage = () => {
 
   const isAdminLoggedin = useSelector((state) => state.isAdminLoggedin);
 
-  const CLIENT_ID = '4c3c1d91cf3283d91a1b';
   const authenticateAdmin = () => {
     if (id === 'admin' && pin === '1111') {
-      window.location = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=gist`;
+      window.location = `https://github.com/login/oauth/authorize?client_id=${constants.AdminClientId}&scope=gist`;
       dispatch(loginAdminAction({ isAdminLoggedin: true }));
     } else {
       openNotification('error');

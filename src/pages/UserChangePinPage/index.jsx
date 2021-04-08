@@ -6,6 +6,8 @@ import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import routes from '../../routes.json';
+import constants from '../../constants.json';
 
 import { changePinUserAction } from '../../store/actions';
 
@@ -47,9 +49,7 @@ const UserChangePinPage = () => {
         code: newUrl[1],
       };
 
-      const PROXY_URL = 'http://localhost:5000/authorize/user';
-
-      fetch(PROXY_URL, {
+      fetch(constants.UserProxyUrl, {
         method: 'POST',
         body: JSON.stringify(requestData),
       })
@@ -65,7 +65,7 @@ const UserChangePinPage = () => {
   }, []);
 
   if (updateUser.firstTime === false) {
-    setTimeout(() => history.push('/user/punchcard'),
+    setTimeout(() => history.push(routes.UserPunchcard),
       100);
   }
 
