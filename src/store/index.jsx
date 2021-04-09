@@ -1,8 +1,7 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-underscore-dangle */
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import axios from 'axios';
 import { rootReducer } from './reducers';
 import constants from '../constants.json';
 
@@ -12,24 +11,22 @@ setTimeout(() => {
   console.log('GET-TOKEN:', getToken);
 }, 5000);
 
+// eslint-disable-next-line consistent-return
 async function setData(data) {
+  const headers = {
+    accept: 'application/vnd.github.v3+json',
+    Authorization: `Bearer ${getToken}`,
+  };
+  const files = {
+    [constants.GIST_FILENAME]: {
+      content: JSON.stringify(data),
+    },
+  };
+
   if (getToken) {
-    const req = await fetch(`https://api.github.com/gists/${constants.GIST_ID}`, {
-      method: 'PATCH',
-      headers: {
-        accept: 'application/vnd.github.v3+json',
-        Authorization: `Bearer ${getToken}`,
-      },
-      body: JSON.stringify({
-        files: {
-          [constants.GIST_FILENAME]: {
-            content: JSON.stringify(data),
-          },
-        },
-      }),
-    });
+    const req = await axios.patch(`https://api.github.com/gists/${constants.GIST_ID}`, { files }, { headers });
     console.log('GIST UPDATED');
-    return req.json();
+    return req;
   }
 }
 
