@@ -144,7 +144,11 @@ export const rootReducer = (state = initialState, action) => {
 
 // eslint-disable-next-line no-unused-vars
 export const loadGistData = () => async (dispatch, getState) => {
-  const req = await axios.get('https://api.github.com/gists/b16b6fd67c637e4ca465b566a09b1032');
-  const gistData = JSON.parse(req.data.files['db.json'].content);
-  dispatch(setReducerState(gistData));
+  try {
+    const req = await axios.get('https://api.github.com/gists/b16b6fd67c637e4ca465b566a09b1032');
+    const gistData = JSON.parse(req.data.files['db.json'].content);
+    dispatch(setReducerState(gistData));
+  } catch (error) {
+    console.error(error);
+  }
 };
