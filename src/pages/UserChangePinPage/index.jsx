@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import axios from 'axios';
 import routes from '../../routes.json';
 import constants from '../../constants.json';
 
@@ -49,14 +50,11 @@ const UserChangePinPage = () => {
         code: newUrl[1],
       };
 
-      fetch(constants.UserProxyUrl, {
-        method: 'POST',
-        body: JSON.stringify(requestData),
-      })
-        .then((response) => response.json())
+      axios.post(constants.UserProxyUrl, requestData)
+        .then((response) => response.data.token)
         .then((token) => {
-          localStorage.setItem('token', JSON.stringify(token));
-          console.log('SetUserToken:', token.token);
+          localStorage.setItem('token', token);
+          console.log('SetUserToken:', token);
         })
         .catch((error) => {
           console.log('ERROR:', error);

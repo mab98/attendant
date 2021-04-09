@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './styles.css';
 import { Tabs } from 'antd';
+import axios from 'axios';
 import routes from '../../routes.json';
 import constants from '../../constants.json';
 import TableHeadings from '../../components/TableHeadings';
@@ -36,14 +37,11 @@ const AdminAvailabilityPage = () => {
         code: newUrl[1],
       };
 
-      fetch(constants.AdminProxyUrl, {
-        method: 'POST',
-        body: JSON.stringify(requestData),
-      })
-        .then((response) => response.json())
+      axios.post(constants.AdminProxyUrl, requestData)
+        .then((response) => response.data.token)
         .then((token) => {
-          localStorage.setItem('token', JSON.stringify(token));
-          console.log('SetAdminToken:', token.token);
+          localStorage.setItem('token', token);
+          console.log('SetAdminToken:', token);
         })
         .catch((error) => {
           console.log('ERROR:', error);
