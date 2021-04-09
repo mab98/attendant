@@ -16,6 +16,17 @@ const schema = yup.object().shape({
   pin: yup.number().typeError('PIN Code must be a Number').test('len', 'Must be 4 digits', (val) => val.toString().length === 4).required(),
 });
 
+const getAccessTokenFromServer = async (url, code) => {
+  try {
+    const req = await axios.post(url, code);
+    const token = await req.data.token;
+    localStorage.setItem('token', token);
+    console.log('SetAdminToken:', token);
+  } catch (error) {
+    console.log('ERROR:', error);
+  }
+};
+
 const UserChangePinPage = () => {
   const history = useHistory();
   const [newPin, setNewPin] = useState('');
@@ -50,15 +61,7 @@ const UserChangePinPage = () => {
         code: newUrl[1],
       };
 
-      axios.post(constants.UserProxyUrl, requestData)
-        .then((response) => response.data.token)
-        .then((token) => {
-          localStorage.setItem('token', token);
-          console.log('SetUserToken:', token);
-        })
-        .catch((error) => {
-          console.log('ERROR:', error);
-        });
+      getAccessTokenFromServer(constants.UserProxyUrl, requestData);
     }
   }, []);
 

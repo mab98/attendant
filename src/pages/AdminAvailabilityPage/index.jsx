@@ -13,6 +13,17 @@ import SearchBox from '../../components/SearchBox';
 
 const { TabPane } = Tabs;
 
+const getAccessTokenFromServer = async (url, code) => {
+  try {
+    const req = await axios.post(url, code);
+    const token = await req.data.token;
+    localStorage.setItem('token', token);
+    console.log('SetAdminToken:', token);
+  } catch (error) {
+    console.log('ERROR:', error);
+  }
+};
+
 const AdminAvailabilityPage = () => {
   const isAdminLoggedin = useSelector((state) => state.isAdminLoggedin);
   const users = useSelector((state) => state.users);
@@ -37,15 +48,7 @@ const AdminAvailabilityPage = () => {
         code: newUrl[1],
       };
 
-      axios.post(constants.AdminProxyUrl, requestData)
-        .then((response) => response.data.token)
-        .then((token) => {
-          localStorage.setItem('token', token);
-          console.log('SetAdminToken:', token);
-        })
-        .catch((error) => {
-          console.log('ERROR:', error);
-        });
+      getAccessTokenFromServer(constants.AdminProxyUrl, requestData);
     }
   }, []);
 

@@ -12,19 +12,20 @@ setTimeout(() => {
 }, 5000);
 
 // eslint-disable-next-line consistent-return
-async function setData(data) {
-  const headers = {
-    accept: 'application/vnd.github.v3+json',
-    Authorization: `Bearer ${getToken}`,
-  };
-  const files = {
-    [constants.GIST_FILENAME]: {
-      content: JSON.stringify(data),
-    },
-  };
-
+async function updateGist(data) {
   if (getToken) {
-    const req = await axios.patch(`https://api.github.com/gists/${constants.GIST_ID}`, { files }, { headers });
+    const req = await axios.patch(`https://api.github.com/gists/${constants.GIST_ID}`, {
+      files: {
+        [constants.GIST_FILENAME]: {
+          content: JSON.stringify(data),
+        },
+      },
+    }, {
+      headers: {
+        accept: 'application/vnd.github.v3+json',
+        Authorization: `Bearer ${getToken}`,
+      },
+    });
     console.log('GIST UPDATED');
     return req;
   }
@@ -58,7 +59,7 @@ function saveToLocalStorage(state) {
 }
 
 store.subscribe(() => {
-  setData(store.getState());
+  updateGist(store.getState());
 });
 
 store.subscribe(() => saveToLocalStorage(store.getState()));
