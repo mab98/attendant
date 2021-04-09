@@ -4,5 +4,7 @@
     "AdminClientId": "4c3c1d91cf3283d91a1b",
     "UserClientId": "ebef7c80ac59d127b94a",
     "AdminId": "admin",
-    "AdminPin": "1111"
+    "AdminPin": "1111",
+    "GIST_ID": "b16b6fd67c637e4ca465b566a09b1032",
+    "GIST_FILENAME": "db.json"
 }

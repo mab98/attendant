@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { rootReducer } from './reducers';
+import constants from '../constants.json';
 
 let getToken;
 setTimeout(() => {
@@ -11,12 +12,9 @@ setTimeout(() => {
   console.log('GET-TOKEN:', getToken);
 }, 5000);
 
-const GIST_ID = 'b16b6fd67c637e4ca465b566a09b1032';
-const GIST_FILENAME = 'db.json';
-
 async function setData(data) {
   if (getToken) {
-    const req = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
+    const req = await fetch(`https://api.github.com/gists/${constants.GIST_ID}`, {
       method: 'PATCH',
       headers: {
         accept: 'application/vnd.github.v3+json',
@@ -24,7 +22,7 @@ async function setData(data) {
       },
       body: JSON.stringify({
         files: {
-          [GIST_FILENAME]: {
+          [constants.GIST_FILENAME]: {
             content: JSON.stringify(data),
           },
         },
