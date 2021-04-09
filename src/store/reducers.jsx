@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 /* eslint-disable no-case-declarations */
+import axios from 'axios';
 import { v1 as uuidv1 } from 'uuid';
 
 import {
@@ -143,8 +144,7 @@ export const rootReducer = (state = initialState, action) => {
 
 // eslint-disable-next-line no-unused-vars
 export const loadGistData = () => async (dispatch, getState) => {
-  const req = await fetch('https://api.github.com/gists/b16b6fd67c637e4ca465b566a09b1032');
-  const gist = await req.json();
-  const gistData = JSON.parse(gist.files['db.json'].content);
+  const req = await axios.get('https://api.github.com/gists/b16b6fd67c637e4ca465b566a09b1032');
+  const gistData = JSON.parse(req.data.files['db.json'].content);
   dispatch(setReducerState(gistData));
 };
