@@ -46,7 +46,7 @@ const PunchCardPage = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (((currentTime > officeEndHours))) {
+      if (currentTime > officeEndHours) {
         setLate(true);
         dispatch(onNoPunchOutUserAction());
       }
@@ -150,7 +150,6 @@ const PunchCardPage = () => {
                               <td className="records-table-cells">{record.timeOut}</td>
                               <td className="records-table-cells">{record.workHours}</td>
                               {currentUser.avgWorkHours !== null ? <td className="records-table-cells">{currentUser.avgWorkHours}</td> : <td className="records-table-cells">{' '}</td>}
-
                             </tr>
                           ))) : null}
                       </tbody>
