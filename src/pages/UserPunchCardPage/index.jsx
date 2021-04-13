@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import { Alert } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Avatar, Modal, Button } from 'antd';
+import { Modal, Button } from 'antd';
 import { changeAvailabilityUserAction, onNoPunchOutUserAction } from '../../store/actions';
 import './styles.css';
 import SearchBox from '../../components/SearchBox';
+import AvatarLogo from '../../components/Avatar';
 
 const PunchCardPage = () => {
   const users = useSelector((state) => state.users);
@@ -63,16 +64,7 @@ const PunchCardPage = () => {
           ? (
             <>
               <div className="punchcard-card">
-                <Avatar
-                  style={{
-                    backgroundColor: 'orange',
-                    verticalAlign: 'middle',
-                  }}
-                  size="large"
-                  gap={4}
-                >
-                  {currentUser.firstname}
-                </Avatar>
+                <AvatarLogo word={currentUser.firstname} />
                 <p>
                   <strong>Firstname: </strong>
                   {currentUser.firstname}
