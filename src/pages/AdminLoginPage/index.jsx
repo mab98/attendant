@@ -24,9 +24,13 @@ const AdminLoginPage = () => {
 
   const isAdminLoggedin = useSelector((state) => state.isAdminLoggedin);
 
+  const visitOAuthLink = (clientId) => {
+    window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=gist`;
+  };
+
   const authenticateAdmin = () => {
     if (id === constants.AdminId && pin === constants.AdminPin) {
-      window.location = `https://github.com/login/oauth/authorize?client_id=${constants.AdminClientId}&scope=gist`;
+      visitOAuthLink(constants.AdminClientId);
       dispatch(loginAdminAction({ isAdminLoggedin: true }));
     } else {
       openNotification('error');

@@ -33,10 +33,14 @@ const UserLoginPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const visitOAuthLink = (clientId) => {
+    window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=gist`;
+  };
+
   const authenticateUser = () => {
     const reqUser = users.reduce((acc, item) => {
       if (id === item.id && pin === item.pin) {
-        window.location = `https://github.com/login/oauth/authorize?client_id=${constants.UserClientId}&scope=gist`;
+        visitOAuthLink(constants.UserClientId);
         return item;
       }
       return acc;
