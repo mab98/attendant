@@ -13,8 +13,7 @@ const AdminStatsPage = () => {
   const [sortByWorkHours, setSortByWorkHours] = useState(false);
   const [timePeriod, setTimePeriod] = useState(1);
 
-  const isAdminLoggedin = useSelector((state) => state.isAdminLoggedin);
-  const users = useSelector((state) => state.users);
+  const { isAdminLoggedin, users } = useSelector((state) => state);
 
   if (sortByName) {
     users.sort((a, b) => ((a.firstname > b.firstname) ? 1 : -1));

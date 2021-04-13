@@ -8,8 +8,7 @@ import './styles.css';
 import LogOut from '../LogOut';
 
 const Header = () => {
-  const isAdminLoggedin = useSelector((state) => state.isAdminLoggedin);
-  const isUserLoggedin = useSelector((state) => state.isUserLoggedin);
+  const { isAdminLoggedin, isUserLoggedin } = useSelector((state) => state);
 
   return (
     <header className="header">

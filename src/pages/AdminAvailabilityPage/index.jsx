@@ -25,8 +25,7 @@ const getAccessTokenFromServer = async (url, code) => {
 };
 
 const AdminAvailabilityPage = () => {
-  const isAdminLoggedin = useSelector((state) => state.isAdminLoggedin);
-  const users = useSelector((state) => state.users);
+  const { isAdminLoggedin, users } = useSelector((state) => state);
   const available = users.filter((item) => (item.available === 'Available'));
   const notAvailable = users.filter((item) => (item.available === 'Not Available'));
   const onLeave = users.filter((item) => (item.available === 'On Leave'));

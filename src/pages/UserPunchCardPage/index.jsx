@@ -8,10 +8,9 @@ import AvatarLogo from '../../components/Avatar';
 import ShowModal from '../../components/Modal';
 
 const PunchCardPage = () => {
-  const users = useSelector((state) => state.users);
-  const currentUser = useSelector((state) => state.currentUser);
-  const officeStartHours = useSelector((state) => state.officeStartHours);
-  const officeEndHours = useSelector((state) => state.officeEndHours);
+  const {
+    users, currentUser, officeStartHours, officeEndHours,
+  } = useSelector((state) => state);
 
   const [late, setLate] = useState(false);
 

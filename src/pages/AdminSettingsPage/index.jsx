@@ -20,11 +20,9 @@ function insertUrlParams(params) {
 }
 
 const SettingsPage = () => {
-  const isAdminLoggedin = useSelector((state) => state.isAdminLoggedin);
-  const users = useSelector((state) => state.users);
-  const minWorkHours = useSelector((state) => state.minWorkHours);
-  const officeStartHours = useSelector((state) => state.officeStartHours);
-  const officeEndHours = useSelector((state) => state.officeEndHours);
+  const {
+    isAdminLoggedin, users, minWorkHours, officeStartHours, officeEndHours,
+  } = useSelector((state) => state);
 
   const [officeStartHoursS, setOfficeStartHoursS] = useState(officeStartHours);
   const [officeEndHoursInComp, setOfficeEndHoursInComp] = useState(officeEndHours);

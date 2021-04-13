@@ -27,8 +27,7 @@ const AddUserPage = () => {
   const [role, setRole] = useState('');
 
   const dispatch = useDispatch();
-  const isAdminLoggedin = useSelector((state) => state.isAdminLoggedin);
-  const lastIdReached = useSelector((state) => state.lastIdReached);
+  const { isAdminLoggedin, lastIdReached } = useSelector((state) => state);
 
   const storeUser = () => {
     dispatch(addUserAction({
