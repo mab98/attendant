@@ -38,8 +38,8 @@ app.post('/authorize/admin', (req, res) => {
 });
 
 app.post('/authorize/user', (req, res) => {
-  const clientID = 'ebef7c80ac59d127b94a';
-  const clientSecret = '716baae943fa90c83a8598d722cca68bc3874bfb';
+  const clientID = 'a3dbe152692f15ce0732';
+  const clientSecret = '0ddddd0d5fef73ce3093f2274bbe0963f757c22f';
   const { code: requestToken } = req.body;
   getToken(clientID, clientSecret, requestToken)
     .then((token) => {

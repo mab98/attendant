@@ -2,7 +2,7 @@
     "AdminProxyUrl": "http://localhost:5000/authorize/admin",
     "UserProxyUrl": "http://localhost:5000/authorize/user",
     "AdminClientId": "4c3c1d91cf3283d91a1b",
-    "UserClientId": "ebef7c80ac59d127b94a",
+    "UserClientId": "a3dbe152692f15ce0732",
     "AdminId": "admin",
     "AdminPin": "1111",
     "GIST_ID": "b16b6fd67c637e4ca465b566a09b1032",
