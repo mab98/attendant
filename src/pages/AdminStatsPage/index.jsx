@@ -59,7 +59,8 @@ const AdminStatsPage = () => {
     });
   });
 
-  const filteredUser = users.filter((user) => user.id.toLowerCase()
+  const filteredUser = users.filter((user) => (
+    user.id.toLowerCase() + user.firstname.toLowerCase() + user.lastname.toLowerCase())
     .includes(searchField.toLowerCase()));
 
   return (
@@ -70,7 +71,7 @@ const AdminStatsPage = () => {
 
           <div className="settings-container">
             <SearchBox
-              placeholder="Search by ID"
+              placeholder="Search Employee"
               setSearchField={setSearchField}
             />
 
