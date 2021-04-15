@@ -1,14 +1,13 @@
 import './styles.css';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 import { notification } from 'antd';
 import { Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import routes from '../../routes.json';
-import constants from '../../constants.json';
+// import constants from '../../constants.json';
 
-import { loginUserAction } from '../../store/actions';
-import { loadGistData } from '../../store/reducers';
 import LoginForm from '../../components/LoginForm';
+import AppContext from '../../context/app-context';
 
 const openNotification = (type) => {
   notification[type]({
@@ -17,41 +16,41 @@ const openNotification = (type) => {
 };
 
 const UserLoginPage = () => {
-  const { isAdminLoggedin, users, currentUser } = useSelector((state) => state);
+  const {
+    isAdminLoggedin, users, currentUser, loginUserAction,
+  } = useContext(AppContext);
 
   const [id, setId] = useState('');
   const [pin, setPin] = useState('');
 
-  const dispatch = useDispatch();
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     loadGistData();
+  //   }, 1000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(loadGistData());
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const visitOAuthLink = (clientId) => {
-    window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=gist`;
-  };
+  // const visitOAuthLink = (clientId) => {
+  //   window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=gist`;
+  // };
 
   const authenticateUser = () => {
     const reqUser = users.reduce((acc, item) => {
       if (id === item.id && pin === item.pin) {
-        visitOAuthLink(constants.UserClientId);
+        // visitOAuthLink(constants.UserClientId);
         return item;
       }
       return acc;
     }, {});
 
-    if (reqUser.id !== undefined) {
-      dispatch(loginUserAction({ currentUser: reqUser }));
+    if (reqUser.id) {
+      loginUserAction({ currentUser: reqUser });
     } else {
       openNotification('error');
     }
   };
 
-  if (currentUser !== '') {
+  if (currentUser) {
     return <Redirect to={routes.UserChangePin} />;
   }
 

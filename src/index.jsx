@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import store from './store';
 import App from './App';
+import AppState from './context/app-state';
 
 ReactDOM.render(
-  <Provider store={store}>
+  <AppState>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </Provider>,
+  </AppState>,
   document.getElementById('root'),
 );

@@ -1,39 +1,36 @@
 import './styles.css';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useContext, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import axios from 'axios';
 import routes from '../../routes.json';
-import constants from '../../constants.json';
+import AppContext from '../../context/app-context';
 
-import { changePinUserAction } from '../../store/actions';
+// import axios from 'axios';
+// import constants from '../../constants.json';
 
 const schema = yup.object().shape({
   pin: yup.number().typeError('PIN Code must be a Number').test('len', 'Must be 4 digits', (val) => val.toString().length === 4).required(),
 });
 
-const getAccessTokenFromServer = async (url, code) => {
-  try {
-    const req = await axios.post(url, code);
-    const token = await req.data.token;
-    localStorage.setItem('token', token);
-    console.log('SetAdminToken:', token);
-  } catch (error) {
-    console.log('ERROR:', error);
-  }
-};
+// const getAccessTokenFromServer = async (url, code) => {
+//   try {
+//     const req = await axios.post(url, code);
+//     const token = await req.data.token;
+//     localStorage.setItem('token', token);
+//     console.log('SetAdminToken:', token);
+//   } catch (error) {
+//     console.log('ERROR:', error);
+//   }
+// };
 
 const UserChangePinPage = () => {
   const history = useHistory();
+  const { currentUser, users, changePinUserAction } = useContext(AppContext);
   const [newPin, setNewPin] = useState('');
-
-  const { currentUser, users } = useSelector((state) => state);
-
-  const dispatch = useDispatch();
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
@@ -45,24 +42,24 @@ const UserChangePinPage = () => {
     currentUser.pin = newPin;
     updateUser.pin = newPin;
     updateUser.firstTime = false;
-    dispatch(changePinUserAction({ users, currentUser }));
+    changePinUserAction({ users, currentUser });
   };
 
-  useEffect(() => {
-    const url = window.location.href;
-    const hasCode = url.includes('?code=');
+  // useEffect(() => {
+  //   const url = window.location.href;
+  //   const hasCode = url.includes('?code=');
 
-    if (hasCode) {
-      const newUrl = url.split('?code=');
-      window.history.pushState({}, null, newUrl[0]);
+  //   if (hasCode) {
+  //     const newUrl = url.split('?code=');
+  //     window.history.pushState({}, null, newUrl[0]);
 
-      const requestData = {
-        code: newUrl[1],
-      };
+  //     const requestData = {
+  //       code: newUrl[1],
+  //     };
 
-      getAccessTokenFromServer(constants.UserProxyUrl, requestData);
-    }
-  }, []);
+  //     getAccessTokenFromServer(constants.UserProxyUrl, requestData);
+  //   }
+  // }, []);
 
   if (updateUser.firstTime === false) {
     setTimeout(() => history.push(routes.UserPunchcard),

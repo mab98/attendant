@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useContext, useState } from 'react';
 import './styles.css';
 import 'antd/dist/antd.css';
 import { Menu, Dropdown, Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import SearchBox from '../../components/SearchBox';
+import AppContext from '../../context/app-context';
 
 const AdminStatsPage = () => {
   const [searchField, setSearchField] = useState('');
@@ -13,7 +13,7 @@ const AdminStatsPage = () => {
   const [sortByWorkHours, setSortByWorkHours] = useState(false);
   const [timePeriod, setTimePeriod] = useState(1);
 
-  const { isAdminLoggedin, users } = useSelector((state) => state);
+  const { isAdminLoggedin, users } = useContext(AppContext);
 
   if (sortByName) {
     users.sort((a, b) => ((a.firstname > b.firstname) ? 1 : -1));

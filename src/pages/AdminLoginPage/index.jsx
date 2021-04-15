@@ -1,14 +1,13 @@
 /* eslint-disable no-shadow */
 import './styles.css';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { notification } from 'antd';
 import { Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import routes from '../../routes.json';
 import constants from '../../constants.json';
 
-import { loginAdminAction } from '../../store/actions';
 import LoginForm from '../../components/LoginForm';
+import AppContext from '../../context/app-context';
 
 const openNotification = (type) => {
   notification[type]({
@@ -20,18 +19,16 @@ const AdminLoginPage = () => {
   const [id, setId] = useState('');
   const [pin, setPin] = useState('');
 
-  const dispatch = useDispatch();
+  const { isAdminLoggedin, loginAdminAction } = useContext(AppContext);
 
-  const isAdminLoggedin = useSelector((state) => state.isAdminLoggedin);
-
-  const visitOAuthLink = (clientId) => {
-    window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=gist`;
-  };
+  // const visitOAuthLink = (clientId) => {
+  //   window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=gist`;
+  // };
 
   const authenticateAdmin = () => {
     if (id === constants.AdminId && pin === constants.AdminPin) {
-      visitOAuthLink(constants.AdminClientId);
-      dispatch(loginAdminAction({ isAdminLoggedin: true }));
+      // visitOAuthLink(constants.AdminClientId);
+      loginAdminAction({ isAdminLoggedin: true });
     } else {
       openNotification('error');
     }

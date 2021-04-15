@@ -1,15 +1,12 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 /* eslint-disable no-case-declarations */
-import axios from 'axios';
 import { v1 as uuidv1 } from 'uuid';
 
 import {
-  LOGIN_ADMIN, LOGOUT_ADMIN,
-  CHANGE_HOURS, ADD_USER, DELETE_USER, UPDATE_USER,
-  LOGIN_USER, LOGOUT_USER, CHANGE_AVAILABILITY,
-  CHANGE_PIN, NO_PUNCH_OUT, SET_REDUCER_STATE, setReducerState,
-} from './actions';
+  LOGIN_ADMIN, LOGOUT_ADMIN, CHANGE_HOURS, ADD_USER, DELETE_USER, UPDATE_USER,
+  LOGIN_USER, LOGOUT_USER, CHANGE_AVAILABILITY, CHANGE_PIN, NO_PUNCH_OUT,
+} from './app-actions';
 
 function threeDigit(myNumber) {
   const formattedNumber = myNumber.toLocaleString('en-US', {
@@ -28,20 +25,7 @@ function minsToStr(t) {
   return `${Math.trunc(t / 60)}:${(`00${t % 60}`).slice(-2)}`;
 }
 
-const initialState = {
-  users: [],
-  isAdminLoggedin: false,
-  isUserLoggedin: false,
-  currentUser: '',
-  minWorkHours: '9',
-  officeStartHours: '09:00',
-  officeEndHours: '18:00',
-  lastIdReached: false,
-  lastId: -1,
-  newUserRecord: false,
-};
-
-export const rootReducer = (state = initialState, action) => {
+const rootReducer = (state, action) => {
   const currentUser = state.users.find((user) => user.id === state.currentUser.id);
   let { newUserRecord } = state;
   switch (action.type) {
@@ -51,7 +35,7 @@ export const rootReducer = (state = initialState, action) => {
         ...action.payload,
       };
     case LOGOUT_ADMIN:
-      localStorage.removeItem('token');
+      // localStorage.removeItem('token');
       return { ...state, isAdminLoggedin: false };
     case ADD_USER:
       let { lastId } = state;
@@ -89,7 +73,7 @@ export const rootReducer = (state = initialState, action) => {
       };
     case LOGOUT_USER:
       newUserRecord = false;
-      localStorage.removeItem('token');
+      // localStorage.removeItem('token');
       return {
         ...state, isUserLoggedin: false, currentUser: '', newUserRecord,
       };
@@ -135,20 +119,9 @@ export const rootReducer = (state = initialState, action) => {
       }
       currentUser.available = 'Not Available';
       return { ...state };
-    case SET_REDUCER_STATE:
-      return (action.payload);
     default:
       return state;
   }
 };
 
-// eslint-disable-next-line no-unused-vars
-export const loadGistData = () => async (dispatch, getState) => {
-  try {
-    const req = await axios.get('https://api.github.com/gists/b16b6fd67c637e4ca465b566a09b1032');
-    const gistData = JSON.parse(req.data.files['db.json'].content);
-    dispatch(setReducerState(gistData));
-  } catch (error) {
-    console.error(error);
-  }
-};
+export default rootReducer;

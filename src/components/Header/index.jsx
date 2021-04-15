@@ -1,14 +1,14 @@
-/* eslint-disable no-sequences */
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import routes from '../../routes.json';
-import { logoutAdminAction, logoutUserAction } from '../../store/actions';
 import './styles.css';
 import LogOut from '../LogOut';
+import AppContext from '../../context/app-context';
 
 const Header = () => {
-  const { isAdminLoggedin, isUserLoggedin } = useSelector((state) => state);
+  const {
+    isAdminLoggedin, isUserLoggedin, logoutAdminAction, logoutUserAction,
+  } = useContext(AppContext);
 
   return (
     <header className="header">
@@ -30,12 +30,12 @@ const Header = () => {
           <li className="header-li">
             {isAdminLoggedin === true
               ? (
-                <LogOut logoutAction={logoutAdminAction(false)} />
+                <LogOut logoutAction={logoutAdminAction} />
               )
               : ''}
             {isUserLoggedin === true
               ? (
-                <LogOut logoutAction={logoutUserAction(false)} />
+                <LogOut logoutAction={logoutUserAction} />
               )
               : ''}
           </li>

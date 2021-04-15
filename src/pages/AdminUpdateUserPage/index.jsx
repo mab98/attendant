@@ -1,12 +1,11 @@
 import './styles.css';
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useContext, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { notification } from 'antd';
 import routes from '../../routes.json';
 
-import { updateUserAction } from '../../store/actions';
 import AdminForm from '../../components/AdminForm';
+import AppContext from '../../context/app-context';
 
 const openNotification = (type) => {
   notification[type]({
@@ -16,12 +15,9 @@ const openNotification = (type) => {
 
 const UpdateUserPage = () => {
   const history = useHistory();
-
-  const dispatch = useDispatch();
+  const { users, updateUserAction } = useContext(AppContext);
 
   const { userId } = useParams();
-
-  const users = useSelector((state) => state.users);
 
   const updateUser = users.find((user) => user.id === userId);
 
@@ -32,9 +28,9 @@ const UpdateUserPage = () => {
   const [role, setRole] = useState(updateUser.role);
 
   const updateUserSubmit = () => {
-    dispatch(updateUserAction({
+    updateUserAction({
       id: userId, firstname, lastname, email, department, role,
-    }));
+    });
     setFirstname('');
     setLastname('');
     setEmail('');

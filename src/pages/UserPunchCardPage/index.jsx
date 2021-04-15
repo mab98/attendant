@@ -1,20 +1,19 @@
 import './styles.css';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Alert } from 'reactstrap';
-import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'antd';
-import { changeAvailabilityUserAction, onNoPunchOutUserAction } from '../../store/actions';
 import AvatarLogo from '../../components/Avatar';
 import ShowModal from '../../components/Modal';
+import AppContext from '../../context/app-context';
 
 const PunchCardPage = () => {
   const {
     users, currentUser, officeStartHours, officeEndHours,
-  } = useSelector((state) => state);
+    changeAvailabilityUserAction, onNoPunchOutUserAction,
+  } = useContext(AppContext);
 
   const [late, setLate] = useState(false);
 
-  const dispatch = useDispatch();
   let availability;
   if (currentUser) {
     availability = users.find((user) => user.id === currentUser.id).available;
@@ -26,7 +25,7 @@ const PunchCardPage = () => {
     const interval = setInterval(() => {
       if (currentTime > officeEndHours) {
         setLate(true);
-        dispatch(onNoPunchOutUserAction());
+        onNoPunchOutUserAction();
       }
     }, 1000);
     return () => clearInterval(interval);
@@ -73,17 +72,17 @@ const PunchCardPage = () => {
                   <>
                     {
                     currentTime < officeEndHours
-                      ? <Button onClick={() => dispatch(changeAvailabilityUserAction('Not Available'))}>Punch Out</Button>
+                      ? <Button onClick={() => changeAvailabilityUserAction('Not Available')}>Punch Out</Button>
                       : (<Button disabled>Punch Out</Button>)
                   }
                     {' '}
                     { parseInt((new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })), 10) > parseInt(officeStartHours, 10) + 1
-                      ? (<Button disabled onClick={() => dispatch(changeAvailabilityUserAction('On Leave'))}>Leave</Button>)
-                      : <Button onClick={() => dispatch(changeAvailabilityUserAction('On Leave'))}>Leave</Button> }
+                      ? (<Button disabled onClick={() => changeAvailabilityUserAction('On Leave')}>Leave</Button>)
+                      : <Button onClick={() => changeAvailabilityUserAction('On Leave')}>Leave</Button> }
 
                   </>
                 ) : (
-                  <Button onClick={() => dispatch(changeAvailabilityUserAction('Available'))}>Punch In</Button>
+                  <Button onClick={() => changeAvailabilityUserAction('Available')}>Punch In</Button>
                 )}
                 <ShowModal currentUser={currentUser} />
 

@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useContext, useState } from 'react';
 import { notification } from 'antd';
 import { Link } from 'react-router-dom';
 import routes from '../../routes.json';
 import SearchBox from '../../components/SearchBox';
-import { changeHours, deleteUserAction } from '../../store/actions';
 import './styles.css';
+import AppContext from '../../context/app-context';
 
 const openNotification = (type) => {
   notification[type]({
@@ -21,8 +20,9 @@ function insertUrlParams(params) {
 
 const SettingsPage = () => {
   const {
-    isAdminLoggedin, users, minWorkHours, officeStartHours, officeEndHours,
-  } = useSelector((state) => state);
+    isAdminLoggedin, users, minWorkHours, officeStartHours,
+    officeEndHours, changeHours, deleteUserAction,
+  } = useContext(AppContext);
 
   const [officeStartHoursS, setOfficeStartHoursS] = useState(officeStartHours);
   const [officeEndHoursInComp, setOfficeEndHoursInComp] = useState(officeEndHours);
@@ -32,16 +32,12 @@ const SettingsPage = () => {
     .filter((user) => user.id.toLowerCase()
       .includes(searchField.toLowerCase()));
 
-  const dispatch = useDispatch();
-
   const submitHours = (e) => {
     e.preventDefault();
-    dispatch(
-      changeHours({
-        officeStartHours: officeStartHoursS,
-        officeEndHours: officeEndHoursInComp,
-      }),
-    );
+    changeHours({
+      officeStartHours: officeStartHoursS,
+      officeEndHours: officeEndHoursInComp,
+    });
   };
 
   return (
@@ -94,7 +90,7 @@ const SettingsPage = () => {
                       <button
                         type="button"
                         className="user-delete"
-                        onClick={() => dispatch(deleteUserAction({ id: user.id }))}
+                        onClick={() => deleteUserAction({ id: user.id })}
                       >
                         Delete
                       </button>

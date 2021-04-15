@@ -1,15 +1,13 @@
 import './styles.css';
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Alert } from 'reactstrap';
 import { notification } from 'antd';
 
-import { useDispatch, useSelector } from 'react-redux';
-
-import { addUserAction } from '../../store/actions';
 import routes from '../../routes.json';
 import AdminForm from '../../components/AdminForm';
+import AppContext from '../../context/app-context';
 
 const openNotification = (type) => {
   notification[type]({
@@ -19,6 +17,7 @@ const openNotification = (type) => {
 
 const AddUserPage = () => {
   const history = useHistory();
+  const { isAdminLoggedin, lastIdReached, addUserAction } = useContext(AppContext);
 
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
@@ -26,13 +25,10 @@ const AddUserPage = () => {
   const [department, setDepartment] = useState('');
   const [role, setRole] = useState('');
 
-  const dispatch = useDispatch();
-  const { isAdminLoggedin, lastIdReached } = useSelector((state) => state);
-
   const storeUser = () => {
-    dispatch(addUserAction({
+    addUserAction({
       firstname, lastname, email, department, role, firstTime: true, avgWorkHours: 0, available: 'Not Available', records: [],
-    }));
+    });
     setFirstname('');
     setLastname('');
     setEmail('');
