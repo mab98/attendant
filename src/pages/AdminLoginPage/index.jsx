@@ -21,13 +21,13 @@ const AdminLoginPage = () => {
 
   const { isAdminLoggedin, loginAdminAction } = useContext(AppContext);
 
-  // const visitOAuthLink = (clientId) => {
-  //   window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=gist`;
-  // };
+  const visitOAuthLink = (clientId) => {
+    window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=gist`;
+  };
 
   const authenticateAdmin = () => {
     if (id === constants.AdminId && pin === constants.AdminPin) {
-      // visitOAuthLink(constants.AdminClientId);
+      visitOAuthLink(constants.AdminClientId);
       loginAdminAction({ isAdminLoggedin: true });
     } else {
       openNotification('error');

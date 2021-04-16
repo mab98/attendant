@@ -1,12 +1,11 @@
-import React, { useContext, useState } from 'react';
-// import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './styles.css';
 import { Tabs } from 'antd';
+import axios from 'axios';
 import routes from '../../routes.json';
 
-// import axios from 'axios';
-// import constants from '../../constants.json';
+import constants from '../../constants.json';
 
 import TableHeadings from '../../components/TableHeadings';
 import SearchBox from '../../components/SearchBox';
@@ -14,16 +13,16 @@ import AppContext from '../../context/app-context';
 
 const { TabPane } = Tabs;
 
-// const getAccessTokenFromServer = async (url, code) => {
-//   try {
-//     const req = await axios.post(url, code);
-//     const token = await req.data.token;
-//     localStorage.setItem('token', token);
-//     console.log('SetAdminToken:', token);
-//   } catch (error) {
-//     console.log('ERROR:', error);
-//   }
-// };
+const getAccessTokenFromServer = async (url, code) => {
+  try {
+    const req = await axios.post(url, code);
+    const token = await req.data.token;
+    localStorage.setItem('token', token);
+    console.log('SetAdminToken:', token);
+  } catch (error) {
+    console.log('ERROR:', error);
+  }
+};
 
 const AdminAvailabilityPage = () => {
   const { isAdminLoggedin, users } = useContext(AppContext);
@@ -36,21 +35,21 @@ const AdminAvailabilityPage = () => {
   const filteredUser = users.filter((user) => user.id.toLowerCase()
     .includes(searchField.toLowerCase()));
 
-  // useEffect(() => {
-  //   const url = window.location.href;
-  //   const hasCode = url.includes('?code=');
+  useEffect(() => {
+    const url = window.location.href;
+    const hasCode = url.includes('?code=');
 
-  //   if (hasCode) {
-  //     const newUrl = url.split('?code=');
-  //     window.history.pushState({}, null, newUrl[0]);
+    if (hasCode) {
+      const newUrl = url.split('?code=');
+      window.history.pushState({}, null, newUrl[0]);
 
-  //     const requestData = {
-  //       code: newUrl[1],
-  //     };
+      const requestData = {
+        code: newUrl[1],
+      };
 
-  //     getAccessTokenFromServer(constants.AdminProxyUrl, requestData);
-  //   }
-  // }, []);
+      getAccessTokenFromServer(constants.AdminProxyUrl, requestData);
+    }
+  }, []);
 
   return (
 

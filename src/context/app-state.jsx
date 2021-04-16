@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import AppContext from './app-context';
 import rootReducer from './app-reducers';
 import {
@@ -10,7 +10,7 @@ import {
 } from './app-actions';
 
 const AppState = ({ children }) => {
-  const initialState = {
+  const initialState = localStorage.getItem('state') ? { ...JSON.parse(localStorage.getItem('state')) } : {
     users: [],
     isAdminLoggedin: false,
     isUserLoggedin: false,
@@ -24,6 +24,10 @@ const AppState = ({ children }) => {
   };
 
   const [state, dispatch] = useReducer(rootReducer, initialState);
+
+  useEffect(() => {
+    localStorage.setItem('state', JSON.stringify(state));
+  }, [state]);
 
   const addUserAction = (data) => {
     dispatch({

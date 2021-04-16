@@ -1,10 +1,9 @@
 import './styles.css';
-import React, { useContext, useState } from 'react';
-// import React, { useEffect, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { notification } from 'antd';
 import { Redirect } from 'react-router-dom';
 import routes from '../../routes.json';
-// import constants from '../../constants.json';
+import constants from '../../constants.json';
 
 import LoginForm from '../../components/LoginForm';
 import AppContext from '../../context/app-context';
@@ -30,14 +29,14 @@ const UserLoginPage = () => {
   //   return () => clearTimeout(timer);
   // }, []);
 
-  // const visitOAuthLink = (clientId) => {
-  //   window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=gist`;
-  // };
+  const visitOAuthLink = (clientId) => {
+    window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=gist`;
+  };
 
   const authenticateUser = () => {
     const reqUser = users.reduce((acc, item) => {
       if (id === item.id && pin === item.pin) {
-        // visitOAuthLink(constants.UserClientId);
+        visitOAuthLink(constants.UserClientId);
         return item;
       }
       return acc;
