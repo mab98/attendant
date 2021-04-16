@@ -35,7 +35,9 @@ const rootReducer = (state, action) => {
         ...action.payload,
       };
     case LOGOUT_ADMIN:
-      localStorage.removeItem('token');
+      setTimeout(() => {
+        localStorage.removeItem('token');
+      }, 1000);
       return { ...state, isAdminLoggedin: false };
     case ADD_USER:
       let { lastId } = state;
@@ -73,7 +75,9 @@ const rootReducer = (state, action) => {
       };
     case LOGOUT_USER:
       newUserRecord = false;
-      localStorage.removeItem('token');
+      setTimeout(() => {
+        localStorage.removeItem('token');
+      }, 1000);
       return {
         ...state, isUserLoggedin: false, currentUser: '', newUserRecord,
       };

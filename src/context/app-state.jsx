@@ -45,14 +45,8 @@ const AppState = ({ children }) => {
     }
   }
 
-  let getToken;
-  useEffect(() => {
-    // setTimeout(() => {
-    // eslint-disable-next-line prefer-const
-    getToken = localStorage.getItem('token');
-    console.log('GET-TOKEN:', getToken);
-    // }, 5000);
-  }, []);
+  const getToken = localStorage.getItem('token');
+  console.log('GET-TOKEN:', getToken);
 
   async function updateGist(data) {
     if (getToken) {
