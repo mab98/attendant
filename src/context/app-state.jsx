@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useReducer } from 'react';
+import axios from 'axios';
+import constants from '../constants.json';
 import AppContext from './app-context';
 import rootReducer from './app-reducers';
 import {
@@ -10,23 +12,68 @@ import {
 } from './app-actions';
 
 const AppState = ({ children }) => {
-  const initialState = localStorage.getItem('state') ? { ...JSON.parse(localStorage.getItem('state')) } : {
-    users: [],
-    isAdminLoggedin: false,
-    isUserLoggedin: false,
-    currentUser: '',
-    minWorkHours: '9',
-    officeStartHours: '09:00',
-    officeEndHours: '18:00',
-    lastIdReached: false,
-    lastId: -1,
-    newUserRecord: false,
-  };
+  function loadFromLocalStorage() {
+    try {
+      return JSON.parse(localStorage.getItem('state'));
+    } catch (error) {
+      return undefined;
+    }
+  }
+  const persistedState = loadFromLocalStorage();
+
+  const initialState = localStorage.getItem('state')
+    ? { ...persistedState } : {
+      users: [],
+      isAdminLoggedin: false,
+      isUserLoggedin: false,
+      currentUser: '',
+      minWorkHours: '9',
+      officeStartHours: '09:00',
+      officeEndHours: '18:00',
+      lastIdReached: false,
+      lastId: -1,
+      newUserRecord: false,
+    };
 
   const [state, dispatch] = useReducer(rootReducer, initialState);
 
+  function saveToLocalStorage(data) {
+    try {
+      localStorage.setItem('state', JSON.stringify(data));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  let getToken;
   useEffect(() => {
-    localStorage.setItem('state', JSON.stringify(state));
+    getToken = (localStorage.getItem('token'));
+    console.log('GET-TOKEN:', getToken);
+  });
+
+  async function updateGist(data) {
+    if (getToken) {
+      const req = await axios.patch(`https://api.github.com/gists/${constants.GIST_ID}`, {
+        files: {
+          [constants.GIST_FILENAME]: {
+            content: JSON.stringify(data),
+          },
+        },
+      }, {
+        headers: {
+          accept: 'application/vnd.github.v3+json',
+          Authorization: `Bearer ${getToken}`,
+        },
+      });
+      console.log('GIST UPDATED');
+      return req;
+    }
+    return null;
+  }
+
+  useEffect(() => {
+    saveToLocalStorage(state);
+    updateGist(state);
   }, [state]);
 
   const addUserAction = (data) => {
