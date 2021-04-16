@@ -8,7 +8,7 @@ import {
   LOGIN_ADMIN, LOGOUT_ADMIN,
   CHANGE_HOURS, ADD_USER, DELETE_USER, UPDATE_USER,
   LOGIN_USER, LOGOUT_USER, CHANGE_AVAILABILITY,
-  CHANGE_PIN, NO_PUNCH_OUT,
+  CHANGE_PIN, NO_PUNCH_OUT, SET_REDUCER_STATE,
 } from './app-actions';
 
 const AppState = ({ children }) => {
@@ -47,9 +47,12 @@ const AppState = ({ children }) => {
 
   let getToken;
   useEffect(() => {
-    getToken = (localStorage.getItem('token'));
+    // setTimeout(() => {
+    // eslint-disable-next-line prefer-const
+    getToken = localStorage.getItem('token');
     console.log('GET-TOKEN:', getToken);
-  });
+    // }, 5000);
+  }, []);
 
   async function updateGist(data) {
     if (getToken) {
@@ -68,6 +71,7 @@ const AppState = ({ children }) => {
       console.log('GIST UPDATED');
       return req;
     }
+    console.log('NO GET-TOKEN');
     return null;
   }
 
@@ -150,6 +154,13 @@ const AppState = ({ children }) => {
     });
   };
 
+  const setReducerState = (data) => {
+    dispatch({
+      type: SET_REDUCER_STATE,
+      payload: data,
+    });
+  };
+
   return (
     <AppContext.Provider value={{
       ...state,
@@ -164,6 +175,7 @@ const AppState = ({ children }) => {
       changeAvailabilityUserAction,
       changePinUserAction,
       onNoPunchOutUserAction,
+      setReducerState,
     }}
     >
       {children}

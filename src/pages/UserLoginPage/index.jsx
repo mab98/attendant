@@ -1,6 +1,7 @@
 import './styles.css';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { notification } from 'antd';
+import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import routes from '../../routes.json';
 import constants from '../../constants.json';
@@ -16,18 +17,28 @@ const openNotification = (type) => {
 
 const UserLoginPage = () => {
   const {
-    isAdminLoggedin, users, currentUser, loginUserAction,
+    isAdminLoggedin, users, currentUser, loginUserAction, setReducerState,
   } = useContext(AppContext);
+
+  const loadGistData = async () => {
+    try {
+      const req = await axios.get('https://api.github.com/gists/b16b6fd67c637e4ca465b566a09b1032');
+      const gistData = JSON.parse(req.data.files['db.json'].content);
+      setReducerState(gistData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const [id, setId] = useState('');
   const [pin, setPin] = useState('');
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     loadGistData();
-  //   }, 1000);
-  //   return () => clearTimeout(timer);
-  // }, []);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      loadGistData();
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const visitOAuthLink = (clientId) => {
     window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=gist`;

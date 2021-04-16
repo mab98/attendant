@@ -5,7 +5,7 @@ import { v1 as uuidv1 } from 'uuid';
 
 import {
   LOGIN_ADMIN, LOGOUT_ADMIN, CHANGE_HOURS, ADD_USER, DELETE_USER, UPDATE_USER,
-  LOGIN_USER, LOGOUT_USER, CHANGE_AVAILABILITY, CHANGE_PIN, NO_PUNCH_OUT,
+  LOGIN_USER, LOGOUT_USER, CHANGE_AVAILABILITY, CHANGE_PIN, NO_PUNCH_OUT, SET_REDUCER_STATE,
 } from './app-actions';
 
 function threeDigit(myNumber) {
@@ -119,6 +119,8 @@ const rootReducer = (state, action) => {
       }
       currentUser.available = 'Not Available';
       return { ...state };
+    case SET_REDUCER_STATE:
+      return (action.payload);
     default:
       return state;
   }
