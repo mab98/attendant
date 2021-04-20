@@ -60,7 +60,7 @@ const UserChangePinPage = () => {
     }
   }, []);
 
-  if (updateUser.firstTime === false) {
+  if (updateUser && updateUser.firstTime === false) {
     setTimeout(() => history.push(routes.UserPunchcard),
       100);
   }

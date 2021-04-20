@@ -8,13 +8,16 @@ import AppContext from '../../context/app-context';
 
 const AdminStatsPage = () => {
   const [searchField, setSearchField] = useState('');
+  const [sortById, setSortById] = useState(false);
   const [sortByName, setSortByName] = useState(false);
-
   const [sortByWorkHours, setSortByWorkHours] = useState(false);
   const [timePeriod, setTimePeriod] = useState(1);
 
   const { isAdminLoggedin, users } = useContext(AppContext);
 
+  if (sortById) {
+    users.sort((a, b) => ((a.id > b.id) ? 1 : -1));
+  }
   if (sortByName) {
     users.sort((a, b) => ((a.firstname > b.firstname) ? 1 : -1));
   }
@@ -22,7 +25,7 @@ const AdminStatsPage = () => {
     users.sort((a, b) => ((a.workHours < b.workHours) ? 1 : -1));
   }
 
-  const menu = (
+  const timePeriodMenu = (
     <Menu>
       <Menu.Item key="0">
         <Button type="text" onClick={() => setTimePeriod(1)}>1 month</Button>
@@ -35,6 +38,47 @@ const AdminStatsPage = () => {
       </Menu.Item>
       <Menu.Item key="3">
         <Button type="text" onClick={() => setTimePeriod(12)}>12 months</Button>
+      </Menu.Item>
+    </Menu>
+  );
+
+  const sortByMenu = (
+    <Menu>
+      <Menu.Item key="0">
+        <Button
+          type="text"
+          onClick={() => {
+            setSortById(true);
+            setSortByName(false);
+            setSortByWorkHours(false);
+          }}
+        >
+          ID
+        </Button>
+      </Menu.Item>
+      <Menu.Item key="1">
+        <Button
+          type="text"
+          onClick={() => {
+            setSortById(false);
+            setSortByName(true);
+            setSortByWorkHours(false);
+          }}
+        >
+          Name
+        </Button>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <Button
+          type="text"
+          onClick={() => {
+            setSortById(false);
+            setSortByName(false);
+            setSortByWorkHours(true);
+          }}
+        >
+          Work Hours
+        </Button>
       </Menu.Item>
     </Menu>
   );
@@ -88,41 +132,36 @@ const AdminStatsPage = () => {
                       {' '}
                       {user.lastname}
                     </p>
-                    {
-                        user.records.length > 0 ? <p className="user-workhours">{user.records[user.records.length - 1].workHours}</p> : <p className="user-workhours">Not logged in yet</p>
-                      }
-
+                    <p className="user-workhours">
+                      {user.records.length > 0 ? user.records[user.records.length - 1].workHours : 'Not logged in yet'}
+                    </p>
                     <p className="user-workhours">{user.avgWorkHours}</p>
                   </div>
                 )))
               : null}
 
             <div className="users">
-              <Dropdown overlay={menu} placement="bottomCenter" arrow>
-                <Button
-                  type="text"
-                  className="dropdown-button"
-                >
-                  Time Period
-                  <DownOutlined />
-                </Button>
-              </Dropdown>
+              <div className="dropdown-menus">
+                <Dropdown overlay={sortByMenu} placement="bottomCenter" arrow>
+                  <Button
+                    type="text"
+                    className="dropdown-button"
+                  >
+                    Sort by
+                    <DownOutlined />
+                  </Button>
+                </Dropdown>
 
-              <button
-                className="search-box"
-                type="button"
-                onClick={() => { setSortByName(true); setSortByWorkHours(false); }}
-              >
-                Sort By Name
-              </button>
-              <button
-                className="search-box"
-                type="button"
-                onClick={() => { setSortByWorkHours(true); setSortByName(false); }}
-              >
-                Sort By Work Hours
-              </button>
-
+                <Dropdown overlay={timePeriodMenu} placement="bottomCenter" arrow>
+                  <Button
+                    type="text"
+                    className="dropdown-button"
+                  >
+                    Time Period
+                    <DownOutlined />
+                  </Button>
+                </Dropdown>
+              </div>
               <div className="user-row">
                 <p className="user-id"><strong>ID</strong></p>
                 <p className="user-name"><strong>Name</strong></p>
@@ -133,7 +172,10 @@ const AdminStatsPage = () => {
               {userList
                 ? (
                   userList.map((user) => (
-                    <div className="user-row" key={user.id}>
+                    <div
+                      className="user-row"
+                      key={Math.random()}
+                    >
                       <p className="user-id">{user.id}</p>
                       <p className="user-name">
                         {user.firstname}

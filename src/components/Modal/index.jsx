@@ -64,7 +64,7 @@ const ShowModal = ({ currentUser }) => {
 };
 
 ShowModal.propTypes = {
-  currentUser: PropTypes.objectOf(PropTypes.object).isRequired,
+  currentUser: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
 };
 
 export default ShowModal;

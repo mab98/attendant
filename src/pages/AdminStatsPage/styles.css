@@ -40,4 +40,11 @@
 .dropdown-button {
   border: 1px solid black;
   padding: 6px 28px 27px;
+  margin-top: 5px;
+}
+
+.dropdown-menus {
+  display: flex;
+  justify-content: center;
+  column-gap: 5px;
 }

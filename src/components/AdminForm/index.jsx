@@ -161,7 +161,7 @@ AdminForm.propTypes = {
   setEmail: PropTypes.func.isRequired,
   setDepartment: PropTypes.func.isRequired,
   setRole: PropTypes.func.isRequired,
-  btnName: PropTypes.bool.isRequired,
+  btnName: PropTypes.string.isRequired,
 };
 
 export default AdminForm;
