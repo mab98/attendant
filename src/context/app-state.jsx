@@ -1,9 +1,10 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect, useReducer } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import constants from '../constants.json';
 import AppContext from './app-context';
 import rootReducer from './app-reducers';
+
 import {
   LOGIN_ADMIN, LOGOUT_ADMIN,
   CHANGE_HOURS, ADD_USER, DELETE_USER, UPDATE_USER,
@@ -41,7 +42,7 @@ const AppState = ({ children }) => {
     try {
       localStorage.setItem('state', JSON.stringify(data));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -175,6 +176,13 @@ const AppState = ({ children }) => {
       {children}
     </AppContext.Provider>
   );
+};
+
+AppState.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]).isRequired,
 };
 
 export default AppState;

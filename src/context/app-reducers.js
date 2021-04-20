@@ -2,6 +2,7 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable no-case-declarations */
 import { v1 as uuidv1 } from 'uuid';
+import constants from '../constants.json';
 
 import {
   LOGIN_ADMIN, LOGOUT_ADMIN, CHANGE_HOURS, ADD_USER, DELETE_USER, UPDATE_USER,
@@ -27,6 +28,10 @@ function minsToStr(t) {
 
 const rootReducer = (state, action) => {
   const currentUser = state.users.find((user) => user.id === state.currentUser.id);
+
+  const currentDate = new Date().toLocaleDateString(); // returns e.g. "4/20/2021"
+  const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }); // returns e.g. "07:09"
+
   let { newUserRecord } = state;
   switch (action.type) {
     case LOGIN_ADMIN:
@@ -36,16 +41,14 @@ const rootReducer = (state, action) => {
       };
     case LOGOUT_ADMIN:
       setTimeout(() => {
-        localStorage.removeItem('token');
+        localStorage.clear();
       }, 1000);
       return { ...state, isAdminLoggedin: false };
     case ADD_USER:
       let { lastId } = state;
       lastId += 1;
-      if (lastId === 999) {
-        let lIdR = state.lastIdReached;
-        // eslint-disable-next-line no-unused-vars
-        lIdR = true;
+      if (lastId === constants.MaxId) {
+        state.lastIdReached = true;
       }
       return { ...state, lastId, users: [...state.users, { id: (`${action.payload.department}-${threeDigit(lastId)}`), pin: '0000', ...action.payload }] };
     case DELETE_USER:
@@ -76,34 +79,34 @@ const rootReducer = (state, action) => {
     case LOGOUT_USER:
       newUserRecord = false;
       setTimeout(() => {
-        localStorage.removeItem('token');
+        localStorage.clear();
       }, 1000);
       return {
         ...state, isUserLoggedin: false, currentUser: '', newUserRecord,
       };
     case CHANGE_AVAILABILITY:
       const newObj = {
-        date: new Date().toLocaleDateString(), timeIn: '', timeOut: '', workHours: '', id: uuidv1(),
+        date: currentDate, timeIn: '', timeOut: '', workHours: '', id: uuidv1(),
       };
       if (newUserRecord) {
         const { records } = state.users.find((user) => user.id === state.currentUser.id);
         if (records.length === 0) {
           records.push(newObj);
         }
-        if (records[records.length - 1].date !== new Date().toLocaleDateString()) {
+        if (records[records.length - 1].date !== currentDate) {
           records.push(newObj);
         }
         newUserRecord = false;
       }
       currentUser.available = action.payload;
       const alrERec = currentUser.records
-        .find((record) => record.date === new Date().toLocaleDateString());
+        .find((record) => record.date === currentDate);
       if (action.payload === 'Available' && currentUser.records.length > 0
       && currentUser.records[currentUser.records.length - 1].timeIn === '') {
-        alrERec.timeIn = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+        alrERec.timeIn = currentTime;
       } else if (currentUser.records.length > 0) {
         if (currentUser.records[currentUser.records.length - 1].timeOut === '') {
-          alrERec.timeOut = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+          alrERec.timeOut = currentTime;
           alrERec.workHours = minsToStr(strToMins(alrERec.timeOut) - strToMins(alrERec.timeIn));
         }
         if (currentUser.records[currentUser.records.length - 1].timeIn !== '') {

@@ -6,5 +6,6 @@
     "AdminId": "admin",
     "AdminPin": "1111",
     "GIST_ID": "b16b6fd67c637e4ca465b566a09b1032",
-    "GIST_FILENAME": "db.json"
+    "GIST_FILENAME": "db.json",
+    "MaxId": 999
 }

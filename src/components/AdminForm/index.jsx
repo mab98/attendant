@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/prop-types */
 import './styles.css';
 
 import React from 'react';
@@ -150,7 +149,7 @@ const AdminForm = ({
   );
 };
 
-AdminForm.protoTypes = {
+AdminForm.propTypes = {
   submitForm: PropTypes.func.isRequired,
   firstname: PropTypes.string.isRequired,
   lastname: PropTypes.string.isRequired,

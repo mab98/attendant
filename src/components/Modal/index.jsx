@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
+import PropTypes from 'prop-types';
 import SearchBox from '../SearchBox';
 
 const ShowModal = ({ currentUser }) => {
@@ -51,7 +51,9 @@ const ShowModal = ({ currentUser }) => {
                   <td className="records-table-cells">{record.timeIn}</td>
                   <td className="records-table-cells">{record.timeOut}</td>
                   <td className="records-table-cells">{record.workHours}</td>
-                  {currentUser.avgWorkHours !== null ? <td className="records-table-cells">{currentUser.avgWorkHours}</td> : <td className="records-table-cells">{' '}</td>}
+                  <td className="records-table-cells">
+                    {currentUser.avgWorkHours !== null ? currentUser.avgWorkHours : ' '}
+                  </td>
                 </tr>
               ))) : null}
           </tbody>
@@ -59,6 +61,10 @@ const ShowModal = ({ currentUser }) => {
       </Modal>
     </>
   );
+};
+
+ShowModal.propTypes = {
+  currentUser: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default ShowModal;

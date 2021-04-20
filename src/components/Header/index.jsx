@@ -28,16 +28,7 @@ const Header = () => {
       <div className="header-nav-items">
         <ul>
           <li className="header-li">
-            {isAdminLoggedin === true
-              ? (
-                <LogOut logoutAction={logoutAdminAction} />
-              )
-              : ''}
-            {isUserLoggedin === true
-              ? (
-                <LogOut logoutAction={logoutUserAction} />
-              )
-              : ''}
+            {isAdminLoggedin || isUserLoggedin ? <LogOut logoutAction={isAdminLoggedin ? logoutAdminAction : logoutUserAction} /> : ''}
           </li>
         </ul>
       </div>

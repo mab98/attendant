@@ -21,87 +21,42 @@ import UserChangePinPage from './pages/UserChangePinPage';
 function App() {
   return (
     <div className="App">
-      <Switch>
-        <Route
-          exact
-          path={routes.Home}
-          render={() => (
-            <Redirect to={routes.UserLogin} />
-          )}
-        />
-        <Route
-          path={routes.UserLogin}
-          render={() => (
-            <MainLayout>
-              <UserLoginPage />
-            </MainLayout>
-          )}
-        />
-        <Route
-          path={routes.AdminLogin}
-          render={() => (
-            <MainLayout>
-              <AdminLoginPage />
-            </MainLayout>
-          )}
-        />
-        <Route
-          path={routes.AdminDashboard}
-          render={() => (
-            <MainLayout>
-              <AdminAvailabilityPage />
-            </MainLayout>
-          )}
-        />
-        <Route
-          path={routes.AdminSettings}
-          render={() => (
-            <MainLayout>
-              <SettingsPage />
-            </MainLayout>
-          )}
-        />
-        <Route
-          path={routes.AdminAddUser}
-          render={() => (
-            <MainLayout>
-              <AddUserPage />
-            </MainLayout>
-          )}
-        />
-        <Route
-          path={routes.AdminUpdateUser}
-          render={() => (
-            <MainLayout>
-              <UpdateUserPage />
-            </MainLayout>
-          )}
-        />
-        <Route
-          path={routes.AdminStats}
-          render={() => (
-            <MainLayout>
-              <AdminStatsPage />
-            </MainLayout>
-          )}
-        />
-        <Route
-          path={routes.UserPunchcard}
-          render={() => (
-            <MainLayout>
-              <PunchCardPage />
-            </MainLayout>
-          )}
-        />
-        <Route
-          path={routes.UserChangePin}
-          render={() => (
-            <MainLayout>
-              <UserChangePinPage />
-            </MainLayout>
-          )}
-        />
-      </Switch>
+      <MainLayout>
+        <Switch>
+          <Route
+            exact
+            path={routes.Home}
+            render={() => <Redirect to={routes.UserLogin} />}
+          />
+          <Route path={routes.UserLogin}>
+            <UserLoginPage />
+          </Route>
+          <Route path={routes.AdminLogin}>
+            <AdminLoginPage />
+          </Route>
+          <Route path={routes.AdminDashboard}>
+            <AdminAvailabilityPage />
+          </Route>
+          <Route path={routes.AdminSettings}>
+            <SettingsPage />
+          </Route>
+          <Route path={routes.AdminAddUser}>
+            <AddUserPage />
+          </Route>
+          <Route path={routes.AdminUpdateUser}>
+            <UpdateUserPage />
+          </Route>
+          <Route path={routes.AdminStats}>
+            <AdminStatsPage />
+          </Route>
+          <Route path={routes.UserPunchcard}>
+            <PunchCardPage />
+          </Route>
+          <Route path={routes.UserChangePin}>
+            <UserChangePinPage />
+          </Route>
+        </Switch>
+      </MainLayout>
     </div>
   );
 }

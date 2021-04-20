@@ -1,7 +1,7 @@
 import { Avatar } from 'antd';
 import React from 'react';
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 const AvatarLogo = ({ word }) => (
   <Avatar
     style={{
@@ -15,5 +15,9 @@ const AvatarLogo = ({ word }) => (
   </Avatar>
 
 );
+
+AvatarLogo.propTypes = {
+  word: PropTypes.string.isRequired,
+};
 
 export default AvatarLogo;

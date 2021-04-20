@@ -15,10 +15,7 @@ const LogOut = ({ logoutAction }) => (
 );
 
 LogOut.propTypes = {
-  logoutAction: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-};
-LogOut.defaultProps = {
-  logoutAction: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  logoutAction: PropTypes.func.isRequired,
 };
 
 export default LogOut;

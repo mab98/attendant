@@ -40,9 +40,12 @@ const AdminStatsPage = () => {
   );
 
   function dateDiffFinder(date) {
+    const currentDate = new Date().toLocaleDateString();
+
     const day1 = new Date(date);
-    const day2 = new Date(new Date().toLocaleDateString());
+    const day2 = new Date(currentDate);
     // const day2 = new Date('6/30/2021');
+
     const difference = Math.abs(day2 - day1);
     const months = difference / (1000 * 3600 * 24) / 30;
     return months;

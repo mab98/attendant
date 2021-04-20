@@ -22,7 +22,7 @@ const getAccessTokenFromServer = async (url, code) => {
     localStorage.setItem('token', token);
     console.log('SetUserToken:', token);
   } catch (error) {
-    console.log('ERROR:', error);
+    console.error('ERROR:', error);
   }
 };
 

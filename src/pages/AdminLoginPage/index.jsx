@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import './styles.css';
 import React, { useContext, useState } from 'react';
 import { notification } from 'antd';

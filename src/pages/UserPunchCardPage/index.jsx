@@ -76,7 +76,7 @@ const PunchCardPage = () => {
                       : (<Button disabled>Punch Out</Button>)
                   }
                     {' '}
-                    { parseInt((new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })), 10) > parseInt(officeStartHours, 10) + 1
+                    { parseInt(currentTime, 10) > parseInt(officeStartHours, 10) + 1
                       ? (<Button disabled onClick={() => changeAvailabilityUserAction('On Leave')}>Leave</Button>)
                       : <Button onClick={() => changeAvailabilityUserAction('On Leave')}>Leave</Button> }
 
