@@ -35,8 +35,8 @@ const AdminForm = ({
     { name: ['firstname'], value: firstname },
     { name: ['lastname'], value: lastname },
     { name: ['email'], value: email },
-    { name: ['department'], value: department },
-    { name: ['role'], value: role },
+    { name: ['department'], value: department === '' ? null : department },
+    { name: ['role'], value: role === '' ? null : role },
   ]);
 
   function handleDepartment(value) {
