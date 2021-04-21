@@ -41,7 +41,6 @@ const AdminForm = ({
     <Form {...layout} form={form} name="control-hooks" onFinish={submitForm}>
       <div className="adduser-group">
         <Form.Item
-          name="firstname"
           label="Firstname"
           rules={[
             {
@@ -58,7 +57,6 @@ const AdminForm = ({
       </div>
       <div className="adduser-group">
         <Form.Item
-          name="lastname"
           label="Lastname"
           rules={[
             {
@@ -75,7 +73,6 @@ const AdminForm = ({
       </div>
       <div className="adduser-group">
         <Form.Item
-          name="email"
           label="Email"
           rules={[
             {
@@ -93,7 +90,6 @@ const AdminForm = ({
       </div>
       <div className="adduser-group">
         <Form.Item
-          name="department"
           label="Department"
           rules={[
             {
@@ -103,7 +99,7 @@ const AdminForm = ({
         >
           <Select
             placeholder="Select a Department"
-            value={department === '' ? 'Choose Department' : department}
+            value={department === '' ? null : department}
             style={{ width: '100%' }}
             onChange={handleDepartment}
             allowClear
@@ -116,7 +112,6 @@ const AdminForm = ({
       </div>
       <div className="adduser-group">
         <Form.Item
-          name="role"
           label="Role"
           rules={[
             {
@@ -126,7 +121,7 @@ const AdminForm = ({
         >
           <Select
             placeholder="Select a Role"
-            value={role === '' ? 'Choose Role' : role}
+            value={role === '' ? null : role}
             style={{ width: '100%' }}
             onChange={handleRole}
             allowClear
