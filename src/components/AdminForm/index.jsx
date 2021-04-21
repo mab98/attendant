@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import './styles.css';
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Form, Input, Button, Select,
@@ -25,10 +25,19 @@ const tailLayout = {
 };
 
 const AdminForm = ({
+  // eslint-disable-next-line no-unused-vars
   submitForm, firstname, lastname, email, department, role, setFirstname, setLastname, setEmail,
   setDepartment, setRole, btnName,
 }) => {
   const [form] = Form.useForm();
+
+  const [fields] = useState([
+    { name: ['firstname'], value: firstname },
+    { name: ['lastname'], value: lastname },
+    { name: ['email'], value: email },
+    { name: ['department'], value: department },
+    { name: ['role'], value: role },
+  ]);
 
   function handleDepartment(value) {
     setDepartment(value);
@@ -38,9 +47,16 @@ const AdminForm = ({
   }
 
   return (
-    <Form {...layout} form={form} name="control-hooks" onFinish={submitForm}>
+    <Form
+      {...layout}
+      form={form}
+      name="control-hooks"
+      onFinish={submitForm}
+      fields={fields}
+    >
       <div className="adduser-group">
         <Form.Item
+          name="firstname"
           label="Firstname"
           rules={[
             {
@@ -49,7 +65,6 @@ const AdminForm = ({
           ]}
         >
           <Input
-            value={firstname}
             placeholder="Enter Firstname"
             onChange={(e) => setFirstname(e.target.value)}
           />
@@ -57,6 +72,7 @@ const AdminForm = ({
       </div>
       <div className="adduser-group">
         <Form.Item
+          name="lastname"
           label="Lastname"
           rules={[
             {
@@ -65,7 +81,6 @@ const AdminForm = ({
           ]}
         >
           <Input
-            value={lastname}
             placeholder="Enter Lastname"
             onChange={(e) => setLastname(e.target.value)}
           />
@@ -73,6 +88,7 @@ const AdminForm = ({
       </div>
       <div className="adduser-group">
         <Form.Item
+          name="email"
           label="Email"
           rules={[
             {
@@ -82,7 +98,7 @@ const AdminForm = ({
           ]}
         >
           <Input
-            value={email}
+            // value={email}
             placeholder="Enter Email"
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -90,6 +106,7 @@ const AdminForm = ({
       </div>
       <div className="adduser-group">
         <Form.Item
+          name="department"
           label="Department"
           rules={[
             {
@@ -99,7 +116,7 @@ const AdminForm = ({
         >
           <Select
             placeholder="Select a Department"
-            value={department === '' ? null : department}
+            // value={department === '' ? null : department}
             style={{ width: '100%' }}
             onChange={handleDepartment}
             allowClear
@@ -112,6 +129,7 @@ const AdminForm = ({
       </div>
       <div className="adduser-group">
         <Form.Item
+          name="role"
           label="Role"
           rules={[
             {
@@ -121,7 +139,7 @@ const AdminForm = ({
         >
           <Select
             placeholder="Select a Role"
-            value={role === '' ? null : role}
+            // value={role === '' ? null : role}
             style={{ width: '100%' }}
             onChange={handleRole}
             allowClear
