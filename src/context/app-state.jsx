@@ -1,4 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
+import logger from 'use-reducer-logger';
+
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import constants from '../constants.json';
@@ -36,7 +38,7 @@ const AppState = ({ children }) => {
       newUserRecord: false,
     };
 
-  const [state, dispatch] = useReducer(rootReducer, initialState);
+  const [state, dispatch] = useReducer(logger(rootReducer), initialState);
 
   function saveToLocalStorage(data) {
     try {
